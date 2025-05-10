@@ -1,0 +1,18 @@
+[0m[[0m[0mdebug[0m] [0m[0mjavaOptions: Vector()[0m
+[0m[[0m[0mdebug[0m] [0m[0mForking tests - parallelism = false[0m
+[0m[[0m[0mdebug[0m] [0m[0mCreate a single-thread test executor[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunner for org.scalatest.tools.Framework produced 1 initial tasks for 1 tests.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.RaftVoteSpec, sbt.ForkMain$SubclassFingerscan@7a0ac6e3, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mRaftVoteSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mA Follower[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should deny vote if candidate log is stale[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mA Follower[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should grant vote if candidate log is up-to-date and no prior vote[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 2 events.[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 636 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 2[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 2, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.RaftVoteSpec[0m
