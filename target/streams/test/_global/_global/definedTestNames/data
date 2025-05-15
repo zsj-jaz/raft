@@ -1,1 +1,1 @@
-["raft.RaftVoteSpec","raft.ClientRedirectSpec","raft.AppendEntriesSpec","raft.ApplyOnceSpec"]
+["raft.ReappearingIndexSpec","raft.ApplyOnceSpec","raft.LeaderAppendOnlySpec","raft.ClientRedirectSpec","raft.CommitEntrySpec","raft.ElectionSafetyWithFailureSpec","raft.LogMatchingWithChurnSpec","raft.ElectionAndRecoveryWithClientSpec","raft.LogMatchingNaturalSpec","raft.SplitBrainSpec","raft.ReadRequestSpec","raft.RaftVoteSpec","raft.AppendEntriesSpec","raft.PartitionSpec"]

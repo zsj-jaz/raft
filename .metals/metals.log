@@ -4585,3 +4585,37 @@ WARNING: Unmatched cancel notification for request id 4
 2025.05.14 20:49:33 INFO  time: compiled root in 1.53s
 2025.05.14 20:49:33 INFO  compiling root (11 scala sources)
 2025.05.14 20:49:35 INFO  time: compiled root in 1.61s
+2025.05.14 20:52:25 INFO  compiling root (1 scala source)
+2025.05.14 20:52:25 INFO  time: compiled root in 0.4s
+2025.05.14 20:52:34 INFO  compiling root (1 scala source)
+2025.05.14 20:52:34 INFO  time: compiled root in 0.3s
+2025.05.14 20:52:47 INFO  compiling root (1 scala source)
+2025.05.14 20:52:47 WARN  Could not load snapshot text for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/LeaderBehavior.scala
+2025.05.14 20:52:47 INFO  time: compiled root in 0.45s
+2025.05.14 20:52:53 INFO  compiling root (1 scala source)
+2025.05.14 20:52:53 INFO  time: compiled root in 0.35s
+2025.05.14 20:53:08 INFO  compiling root (1 scala source)
+2025.05.14 20:53:08 INFO  time: compiled root in 0.21s
+2025.05.14 20:53:08 INFO  compiling root (3 scala sources)
+2025.05.14 20:53:08 INFO  time: compiled root in 0.47s
+2025.05.14 20:53:21 INFO  compiling root (2 scala sources)
+2025.05.14 20:53:21 INFO  time: compiled root in 0.33s
+2025.05.14 20:53:21 INFO  compiling root (2 scala sources)
+2025.05.14 20:53:21 INFO  time: compiled root in 0.39s
+2025.05.14 20:53:34 INFO  compiling root (3 scala sources)
+2025.05.14 20:53:34 INFO  time: compiled root in 0.56s
+2025.05.14 20:53:54 INFO  compiling root (1 scala source)
+2025.05.14 20:53:54 INFO  time: compiled root in 0.21s
+2025.05.14 20:53:54 INFO  compiling root (3 scala sources)
+2025.05.14 20:53:54 INFO  time: compiled root in 0.21s
+2025.05.14 20:54:26 INFO  compiling root (2 scala sources)
+2025.05.14 20:54:26 WARN  Could not load snapshot text for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/FollowerBehavior.scala
+2025.05.14 20:54:26 INFO  time: compiled root in 0.43s
+2025.05.14 20:54:26 INFO  compiling root (3 scala sources)
+2025.05.14 20:54:26 INFO  time: compiled root in 0.48s
+2025.05.14 20:54:42 INFO  compiling root (1 scala source)
+2025.05.14 20:54:42 INFO  time: compiled root in 0.28s
+2025.05.14 20:59:34 INFO  compiling root-test (10 scala sources)
+2025.05.14 20:59:36 INFO  time: compiled root-test in 1.63s
+2025.05.14 20:59:36 INFO  compiling root-test (4 scala sources)
+2025.05.14 20:59:36 INFO  time: compiled root-test in 0.61s

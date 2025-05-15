@@ -23,10 +23,6 @@ object FollowerBehavior {
             redirectClientToMostRecentLeader(node, replyTo)
             Behaviors.same
 
-          case UnstableRead(key, replyTo) =>
-            handleUnstableRead(node, key, replyTo)
-            Behaviors.same
-
           case SetPeers(p, partition) =>
             node.peers = p.filterNot(_ == context.self)
             node.partition =
@@ -282,31 +278,20 @@ object FollowerBehavior {
 
     applyCommittedEntries(node)
 
-    // Recompute tentative state machine if the log was modified
-    node.stateMachine match {
-      case fsm: FileAppendingStateMachine =>
-        val committedSnapshot = fsm.kvSnapshot() // <- we'll define this helper next
-        val logSuffix         = node.log.drop(node.commitIndex + 1)
-        fsm.recomputeTentative(committedSnapshot, logSuffix)
-      case _                              => // no-op
-    }
-
     (true, modified)
   }
 
-  def applyCommittedEntriesAndRespondClient(node: RaftNode): Unit = {
+  def applyCommittedEntries(node: RaftNode): Unit = {
     while (node.lastApplied < node.commitIndex) {
       node.lastApplied += 1
       val entry = node.log(node.lastApplied)
       println(s"[${node.id}] Applying log[${node.lastApplied}]: ${entry.command}")
 
-      val (applied, clientResponse) = node.stateMachine.applyCommand(
+      node.stateMachine.applyCommand(
         entry.command,
         entry.clientId,
         entry.serialNum
       )
-
-      entry.replyTo.foreach(_ ! clientResponse)
 
     }
   }

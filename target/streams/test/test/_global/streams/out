@@ -1,18 +1,96 @@
 [0m[[0m[0mdebug[0m] [0m[0mjavaOptions: Vector()[0m
 [0m[[0m[0mdebug[0m] [0m[0mForking tests - parallelism = false[0m
 [0m[[0m[0mdebug[0m] [0m[0mCreate a single-thread test executor[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunner for org.scalatest.tools.Framework produced 1 initial tasks for 1 tests.[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.RaftVoteSpec, sbt.ForkMain$SubclassFingerscan@7a0ac6e3, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunner for org.scalatest.tools.Framework produced 14 initial tasks for 14 tests.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.ReappearingIndexSpec, sbt.ForkMain$SubclassFingerscan@7a0ac6e3, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mReappearingIndexSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mReappearing index[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should overwrite older log entry and apply new one[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.ApplyOnceSpec, sbt.ForkMain$SubclassFingerscan@71be98f5, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mApplyOnceSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mA Follower[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should apply a committed entry only once even after multiple AppendEntries with same leaderCommit[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.LeaderAppendOnlySpec, sbt.ForkMain$SubclassFingerscan@6fadae5d, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mLeaderAppendOnlySpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mA Raft Leader[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should only append to its log over time[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.ClientRedirectSpec, sbt.ForkMain$SubclassFingerscan@17f6480, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mClientRedirectSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mA Follower[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should redirect client request to known leader[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.CommitEntrySpec, sbt.ForkMain$SubclassFingerscan@2d6e8792, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mCommitEntrySpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mA Leader[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should advance commitIndex and apply entry after quorum Ack[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.ElectionSafetyWithFailureSpec, sbt.ForkMain$SubclassFingerscan@2812cbfa, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mElectionSafetyWithFailureSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mRaft cluster[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should elect at most one leader per term, even after leader failure[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.LogMatchingWithChurnSpec, sbt.ForkMain$SubclassFingerscan@2acf57e3, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mLogMatchingWithChurnSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mRaft cluster with churn[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should maintain the log matching property even with random leader crashes and restarts[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.ElectionAndRecoveryWithClientSpec, sbt.ForkMain$SubclassFingerscan@506e6d5e, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mElectionAndRecoveryWithClientSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mRaft cluster with client interaction and leader recovery[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should elect leader, process client request, reelect after failure, and rejoin with state recovery[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.LogMatchingNaturalSpec, sbt.ForkMain$SubclassFingerscan@96532d6, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mLogMatchingNaturalSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mRaft cluster[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should maintain log matching property under realistic client load[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.SplitBrainSpec, sbt.ForkMain$SubclassFingerscan@3796751b, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mSplitBrainSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mRaft cluster[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should recover after split-brain and commit after healing[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.ReadRequestSpec, sbt.ForkMain$SubclassFingerscan@67b64c45, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mReadRequestSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mA Leader[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should respond with correct value for a linearizable ReadRequest[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.RaftVoteSpec, sbt.ForkMain$SubclassFingerscan@4411d970, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mRaftVoteSpec:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mA Follower[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should deny vote if candidate log is stale[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mA Follower[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should grant vote if candidate log is up-to-date and no prior vote[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 2 events.[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 636 milliseconds.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 2[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 2, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.AppendEntriesSpec, sbt.ForkMain$SubclassFingerscan@6442b0a6, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAppendEntriesSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mA Follower[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should reject AppendEntries with invalid prevLogIndex even if entries is empty (heartbeat)[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(raft.PartitionSpec, sbt.ForkMain$SubclassFingerscan@60f82f98, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mPartitionSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mRaft cluster[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should elect leader in majority partition and not in minority[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 45 seconds, 285 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 15[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 14, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 15, failed 0, canceled 0, ignored 0, pending 0[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.ReappearingIndexSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.ApplyOnceSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.LeaderAppendOnlySpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.ClientRedirectSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.CommitEntrySpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.ElectionSafetyWithFailureSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.LogMatchingWithChurnSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.ElectionAndRecoveryWithClientSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.LogMatchingNaturalSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.SplitBrainSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.ReadRequestSpec[0m
 [0m[[0m[0mdebug[0m] [0m[0m	raft.RaftVoteSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.AppendEntriesSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	raft.PartitionSpec[0m

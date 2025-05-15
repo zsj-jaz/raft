@@ -35,38 +35,6 @@ object RaftHelpers {
     leaderIdOpt.foreach(id => node.setLeaderId(Some(id)))
   }
 
-  def applyCommittedEntriesAndRespondClient(node: RaftNode): Unit = {
-    while (node.lastApplied < node.commitIndex) {
-      node.lastApplied += 1
-      val entry = node.log(node.lastApplied)
-      println(s"[${node.id}] Applying log[${node.lastApplied}]: ${entry.command}")
-
-      val (applied, clientResponse) = node.stateMachine.applyCommand(
-        entry.command,
-        entry.clientId,
-        entry.serialNum
-      )
-
-      entry.replyTo.foreach(_ ! clientResponse)
-
-    }
-  }
-
-  def applyCommittedEntries(node: RaftNode): Unit = {
-    while (node.lastApplied < node.commitIndex) {
-      node.lastApplied += 1
-      val entry = node.log(node.lastApplied)
-      println(s"[${node.id}] Applying log[${node.lastApplied}]: ${entry.command}")
-
-      node.stateMachine.applyCommand(
-        entry.command,
-        entry.clientId,
-        entry.serialNum
-      )
-
-    }
-  }
-
   def transitionToFollowerAndReplay(
       node: RaftNode,
       message: Command
@@ -92,17 +60,4 @@ object RaftHelpers {
     replyTo ! ClientResponse(success = false, message = message)
   }
 
-  def handleUnstableRead(
-      node: RaftNode,
-      key: String,
-      replyTo: ActorRef[ClientResponse]
-  ): Unit = {
-    node.stateMachine match {
-      case fsm: FileAppendingStateMachine =>
-        val value = fsm.tentativeRead(key)
-        replyTo ! ClientResponse(success = true, message = value)
-      case _                              =>
-        replyTo ! ClientResponse(success = false, message = "Unsupported state machine")
-    }
-  }
 }

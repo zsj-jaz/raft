@@ -45,8 +45,6 @@ class ApplyOnceSpec extends AnyWordSpecLike with BeforeAndAfterAll {
         responseProbe.expectMessageType[AppendEntriesResponse]
       }
 
-      //   Thread.sleep(500) // Give time to process
-
       // Read lines from state machine output
       val lines        = Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8).asScala
       val appliedLines = lines.filter(_.contains("SET Y"))

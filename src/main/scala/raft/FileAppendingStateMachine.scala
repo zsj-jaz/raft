@@ -15,8 +15,7 @@ class FileAppendingStateMachine(nodeId: String) extends StateMachine {
     mutable.Map
       .empty[String, (Int, ClientResponse)] // clientId -> (lastSerial, response(sucess, message))
 
-  private val kvStore        = mutable.Map.empty[String, String]
-  private val tentativeStore = mutable.Map.empty[String, String]
+  private val kvStore = mutable.Map.empty[String, String]
 
   override def applyCommand(
       command: String,
@@ -63,32 +62,6 @@ class FileAppendingStateMachine(nodeId: String) extends StateMachine {
 
   def readKey(key: String): String = {
     kvStore.get(key).map(v => s"$key=$v").getOrElse(s"$key not found")
-  }
-
-  def tentativeRead(key: String): String = {
-    tentativeStore.get(key).map(v => s"$key=$v").getOrElse(s"$key not found")
-  }
-
-  def updateTentative(entry: RaftNode.LogEntry): Unit = {
-    if (entry.command.startsWith("SET ")) {
-      val parts = entry.command.stripPrefix("SET ").split("=", 2)
-      if (parts.length == 2) {
-        val k = parts(0).trim
-        val v = parts(1).trim
-        tentativeStore(k) = v
-      }
-    }
-  }
-
-  def kvSnapshot(): Map[String, String] = kvStore.toMap
-
-  def recomputeTentative(
-      kvSnapshot: Map[String, String],
-      uncommitted: List[RaftNode.LogEntry]
-  ): Unit = {
-    tentativeStore.clear()
-    tentativeStore ++= kvSnapshot
-    uncommitted.foreach(updateTentative)
   }
 
 }

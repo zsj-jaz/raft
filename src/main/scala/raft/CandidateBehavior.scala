@@ -27,10 +27,6 @@ object CandidateBehavior {
             redirectClientToMostRecentLeader(node, replyTo)
             Behaviors.same
 
-          case UnstableRead(key, replyTo) =>
-            handleUnstableRead(node, key, replyTo)
-            Behaviors.same
-
           case SetPeers(p, partition) =>
             node.peers = p.filterNot(_ == context.self)
             node.partition =

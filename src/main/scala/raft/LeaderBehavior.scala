@@ -336,10 +336,6 @@ object LeaderBehavior {
           handleReadRequest(key, clientId, serialNum, replyTo)
           Behaviors.same
 
-        case UnstableRead(key, replyTo) =>
-          handleUnstableRead(node, key, replyTo)
-          Behaviors.same
-
         case SendHeartbeat =>
           sendAppendEntries()
           Behaviors.same

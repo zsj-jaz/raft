@@ -1,1 +1,1 @@
-[[{},{}],{}]
+[[{"${BASE}/src/test/resources/logback-test.xml":["${BASE}/target/scala-3.3.5/test-classes/logback-test.xml"]},{"${BASE}/target/scala-3.3.5/test-classes/logback-test.xml":["${BASE}/src/test/resources/logback-test.xml"]}],{"${BASE}/src/test/resources/logback-test.xml":{"file":"file:///Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/resources/logback-test.xml","lastModified":1747076650755}}]
