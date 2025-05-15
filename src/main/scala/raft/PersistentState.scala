@@ -1,6 +1,6 @@
 package raft
 
-import raft.RaftNode.LogEntry
+import RaftNode.LogEntry
 
 import java.io.{File, PrintWriter}
 import scala.io.Source
@@ -14,14 +14,32 @@ class PersistentState(nodeId: String) {
 
   // TO DO: not efficient to write entire log every time. Risky if the program crashes halfway through writing
   def persist(): Unit = {
-    val writer = new PrintWriter(new File(filePath))
-    writer.println(currentTerm)
-    writer.println(votedFor.getOrElse("null"))
-    log.foreach { entry =>
-      writer.println(s"${entry.term}|${entry.command}")
+    var fos: java.io.FileOutputStream = null
+    var writer: java.io.PrintWriter   = null
+
+    try {
+      fos = new java.io.FileOutputStream(filePath)
+      writer = new java.io.PrintWriter(fos)
+
+      writer.println(currentTerm)
+      writer.println(votedFor.getOrElse("null"))
+      log.foreach { entry =>
+        writer.println(s"${entry.term}|${entry.command}|${entry.clientId}|${entry.serialNum}")
+      }
+
+      writer.flush()
+      fos.getFD.sync() // Ensures OS-level flush to disk
+      println(s"[Persist] State saved to $filePath")
+
+    } catch {
+      case ex: Exception =>
+        println(s"[Persist] Error writing to $filePath: ${ex.getMessage}")
+        throw ex // re-throw or handle as needed
+
+    } finally {
+      if (writer != null) writer.close()
+      else if (fos != null) fos.close() // ensure fos closed if writer creation failed
     }
-    writer.close()
-    println(s"[Persist] State saved to $filePath")
   }
 
   def load(): PersistentState = {

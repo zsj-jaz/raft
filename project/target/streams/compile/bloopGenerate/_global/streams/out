@@ -1,4 +1,4 @@
-[0m[[0m[0mdebug[0m] [0m[0m[hw2-build] Classpath dependencies List()[0m
-[0m[[0m[0mdebug[0m] [0m[0m[hw2-build] Dependencies from configurations List()[0m
-[0m[[0m[0mdebug[0m] [0m[0mBloop wrote the configuration of project 'hw2-build' to '/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/project/.bloop/hw2-build.json'[0m
-[0m[[0m[32msuccess[0m] [0m[0mGenerated .bloop/hw2-build.json[0m
+[debug] [raft-build] Classpath dependencies List()
+[debug] [raft-build] Dependencies from configurations List()
+[debug] Bloop wrote the configuration of project 'raft-build' to '/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/.bloop/raft-build.json'
+[success] Generated .bloop/raft-build.json

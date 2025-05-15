@@ -2,10 +2,9 @@ package raft
 
 import akka.actor.typed.{ActorRef, Behavior}
 import akka.actor.typed.scaladsl.Behaviors
-import raft.behaviors._
+
 import scala.concurrent.duration._
 import scala.util.Random
-import raft.PersistentState
 
 object RaftNode {
 
@@ -49,11 +48,28 @@ object RaftNode {
 
   final case class ClientResponse(success: Boolean, message: String)
 
+  final case class ReadRequest(
+      key: String,
+      clientId: String,
+      serialNum: Int,
+      replyTo: ActorRef[ClientResponse]
+  ) extends Command
+
+  final case class UnstableRead(
+      key: String,
+      replyTo: ActorRef[ClientResponse]
+  ) extends Command
+
   // Internal control
-  case object SendHeartbeat                                extends Command
-  case object ElectionTimeout                              extends Command
-  final case class SetPeers(peers: Seq[ActorRef[Command]]) extends Command
-  final case class GetState(replyTo: ActorRef[RaftState])  extends Command
+  case object SendHeartbeat   extends Command
+  case object ElectionTimeout extends Command
+
+  final case class SetPeers(
+      peers: Seq[ActorRef[Command]],
+      partition: Seq[ActorRef[Command]] = Seq.empty // optional
+  ) extends Command
+  final case class GetState(replyTo: ActorRef[RaftState]) extends Command
+  case object BecomeLeader                                extends Command
 
   // Log entry
   final case class LogEntry(
@@ -65,12 +81,18 @@ object RaftNode {
   )
 
   // For testing/debugging
-  final case class RaftState(role: String, term: Int)
+  final case class RaftState(role: String, id: String, term: Int, log: List[LogEntry])
+
+  final case class GetCommitIndex(replyTo: ActorRef[Int]) extends Command
+
+  def createForTest(id: String, presetState: PersistentState): RaftNode = {
+    new RaftNode(id, presetState)
+  }
 
   // Start the Raft node as follower
   def apply(id: String): Behavior[Command] = {
     Behaviors.setup { context =>
-      val defaultState = new PersistentState(id)
+      val defaultState = new PersistentState(id).load()
       applyWithState(id, defaultState)
     }
   }
@@ -115,13 +137,14 @@ class RaftNode private (val id: String, val state: PersistentState) {
   var commitIndex: Int = 0 // nothing committed yet
   var lastApplied: Int = 0 // dummy is applied or ignored
 
-  // === Volatile state on leaders (reinitialized after election) ===
-  var matchIndex: Map[ActorRef[Command], Int] = Map.empty
-  var nextIndex: Map[ActorRef[Command], Int]  = Map.empty
+  // // === Volatile state on leaders (reinitialized after election) ===
+  // var matchIndex: Map[ActorRef[Command], Int] = Map.empty
+  // var nextIndex: Map[ActorRef[Command], Int]  = Map.empty
 
   // === Other shared state ===
-  var peers: Seq[ActorRef[Command]] = Seq.empty
-  var leaderId: Option[String]      = None
+  var peers: Seq[ActorRef[Command]]     = Seq.empty
+  var partition: Seq[ActorRef[Command]] = Seq.empty
+  var leaderId: Option[String]          = None
 
   // === Role transitions ===
   def follower(): Behavior[Command]                        = FollowerBehavior(this)

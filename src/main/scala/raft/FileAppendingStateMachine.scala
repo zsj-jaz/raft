@@ -2,7 +2,7 @@ package raft
 
 import java.io.{File, FileWriter, BufferedWriter}
 import scala.collection.mutable
-import raft.RaftNode.ClientResponse
+import RaftNode.ClientResponse
 
 class FileAppendingStateMachine(nodeId: String) extends StateMachine {
 
@@ -14,6 +14,9 @@ class FileAppendingStateMachine(nodeId: String) extends StateMachine {
   private val clientRecords =
     mutable.Map
       .empty[String, (Int, ClientResponse)] // clientId -> (lastSerial, response(sucess, message))
+
+  private val kvStore        = mutable.Map.empty[String, String]
+  private val tentativeStore = mutable.Map.empty[String, String]
 
   override def applyCommand(
       command: String,
@@ -30,7 +33,23 @@ class FileAppendingStateMachine(nodeId: String) extends StateMachine {
 
       case _ =>
         // New command — apply it and record the response
-        val result = s"OK: $command"
+        val result = {
+          if (command.startsWith("SET ")) {
+            val remainder = command.stripPrefix("SET ").trim
+            val parts     = remainder.split("=", 2)
+
+            if (parts.length == 2) {
+              val key   = parts(0).trim
+              val value = parts(1).trim
+              kvStore(key) = value
+              s"OK: SET $key = $value"
+            } else {
+              s"INVALID SET COMMAND: $command"
+            }
+          } else {
+            s"UNKNOWN COMMAND: $command"
+          }
+        }
 
         val bw = new BufferedWriter(new FileWriter(file, true))
         bw.write(s"$clientId:$serialNum -> $command")
@@ -40,6 +59,36 @@ class FileAppendingStateMachine(nodeId: String) extends StateMachine {
         clientRecords(clientId) = (serialNum, ClientResponse(success = true, message = result))
         (true, ClientResponse(success = true, message = result))
     }
+  }
+
+  def readKey(key: String): String = {
+    kvStore.get(key).map(v => s"$key=$v").getOrElse(s"$key not found")
+  }
+
+  def tentativeRead(key: String): String = {
+    tentativeStore.get(key).map(v => s"$key=$v").getOrElse(s"$key not found")
+  }
+
+  def updateTentative(entry: RaftNode.LogEntry): Unit = {
+    if (entry.command.startsWith("SET ")) {
+      val parts = entry.command.stripPrefix("SET ").split("=", 2)
+      if (parts.length == 2) {
+        val k = parts(0).trim
+        val v = parts(1).trim
+        tentativeStore(k) = v
+      }
+    }
+  }
+
+  def kvSnapshot(): Map[String, String] = kvStore.toMap
+
+  def recomputeTentative(
+      kvSnapshot: Map[String, String],
+      uncommitted: List[RaftNode.LogEntry]
+  ): Unit = {
+    tentativeStore.clear()
+    tentativeStore ++= kvSnapshot
+    uncommitted.foreach(updateTentative)
   }
 
 }

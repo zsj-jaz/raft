@@ -1,10 +1,9 @@
-package raft.behaviors
+package raft
 
 import akka.actor.typed.{ActorRef, Behavior}
 import akka.actor.typed.scaladsl.{Behaviors, TimerScheduler, ActorContext}
-import raft.RaftNode
-import raft.RaftNode._
-import raft.RaftHelpers._
+import RaftNode._
+import RaftHelpers._
 
 object FollowerBehavior {
 
@@ -20,8 +19,19 @@ object FollowerBehavior {
             redirectClientToMostRecentLeader(node, replyTo)
             Behaviors.same
 
-          case SetPeers(p) =>
-            node.peers = p
+          case ReadRequest(_, _, _, replyTo) =>
+            redirectClientToMostRecentLeader(node, replyTo)
+            Behaviors.same
+
+          case UnstableRead(key, replyTo) =>
+            handleUnstableRead(node, key, replyTo)
+            Behaviors.same
+
+          case SetPeers(p, partition) =>
+            node.peers = p.filterNot(_ == context.self)
+            node.partition =
+              if (partition.nonEmpty) partition.filterNot(_ == context.self)
+              else p.filterNot(_ == context.self)
             Behaviors.same
 
           case ElectionTimeout =>
@@ -39,6 +49,9 @@ object FollowerBehavior {
               lastLogTerm,
               replyTo
             )
+
+          case AppendEntriesResponse(term, _, _, _) =>
+            handleUnexpectedAppendEntriesResponse(node, context, term)
 
           case AppendEntries(
                 term,
@@ -62,8 +75,15 @@ object FollowerBehavior {
               replyTo
             )
 
+          case VoteResponse(term, _) =>
+            handleUnexpectedVoteResponse(node, context, term)
+
           case GetState(replyTo) =>
-            replyTo ! RaftState("Follower", node.currentTerm)
+            replyTo ! RaftState("Follower", node.id, node.currentTerm, node.log)
+            Behaviors.same
+
+          case GetCommitIndex(replyTo) =>
+            replyTo ! node.commitIndex
             Behaviors.same
 
           case msg =>
@@ -123,6 +143,24 @@ object FollowerBehavior {
     }
   }
 
+  private def handleUnexpectedVoteResponse(
+      node: RaftNode,
+      context: ActorContext[Command],
+      term: Int
+  ): Behavior[Command] = {
+    if (term > node.currentTerm) {
+      context.log.info(
+        s"[${node.id}] <Follower> Received unexpected VoteResponse with newer term $term — stepping down"
+      )
+      stepdown(node, term)
+    } else {
+      context.log.debug(
+        s"[${node.id}] <Follower> Received unexpected VoteResponse (term $term) — ignoring"
+      )
+    }
+    Behaviors.same
+  }
+
   private def handleAppendEntries(
       node: RaftNode,
       context: ActorContext[Command],
@@ -135,6 +173,11 @@ object FollowerBehavior {
       leaderCommit: Int,
       replyTo: ActorRef[AppendEntriesResponse]
   ): Behavior[Command] = {
+
+    context.log.info(
+      s"[${node.id}] <Follower> Received AppendEntries from $leaderId: term=$term, prevLogIndex=$prevLogIndex, prevLogTerm=$prevLogTerm, entries=${entries
+          .map(_.command)}"
+    )
 
     if (term < node.currentTerm) {
       context.log.debug(
@@ -155,6 +198,9 @@ object FollowerBehavior {
           context.log.info(
             s"[${node.id}] <Follower> Appended ${entries.length} entries from leader $leaderId"
           )
+          context.log.info(
+            s"[${node.id}] <Follower> log terms: ${node.log.map(_.term).mkString("[", ", ", "]")}"
+          )
         }
         prevLogIndex + entries.length
       } else {
@@ -174,5 +220,112 @@ object FollowerBehavior {
       Behaviors.same
     }
 
+  }
+
+  private def replicateLog(
+      node: RaftNode,
+      prevLogIndex: Int,
+      prevLogTerm: Int,
+      entries: List[LogEntry],
+      leaderCommit: Int
+  ): (Boolean, Boolean) = {
+    if (prevLogIndex >= 0) {
+      if (prevLogIndex >= node.log.length) return (false, false)
+      if (node.log(prevLogIndex).term != prevLogTerm) return (false, false)
+    }
+
+    var index    = prevLogIndex + 1
+    var i        = 0
+    var modified = false
+
+    while (i < entries.length) {
+
+      if (index >= node.log.length) {
+        // reached the end of the follower's log, append the remaining new entries from the leader
+        node.state.log = node.log ++ entries.drop(i)
+        modified = true
+        // end of loop
+        i = entries.length
+      } else if (node.log(index).term != entries(i).term) {
+        // found a mismatch, delete the entry and all that follow it, then append the new entries.
+        node.state.log = node.log.take(index) ++ entries.drop(i)
+        modified = true
+        i = entries.length
+      } else {
+        // entries match, just walk by it.
+        index += 1
+        i += 1
+      }
+    }
+
+    if (modified) {
+      node.state.persist()
+    }
+
+    /** The in the final step (#5) of min AppendEntries is necessary, and it needs to be computed
+      * with the index of the last new entry. It is not sufficient to simply have the function that
+      * applies things from your log between and lastApplied commitIndex stop when it reaches the
+      * end of your log. This is because you may have entries in your log that differ from the
+      * leader’s log after the entries that the leader sent you (which all match the ones in your
+      * log). Because #3 dictates that you only truncate your log if you have conflicting entries,
+      * those won’t be removed, and if leaderCommit is beyond the entries the leader sent you, you
+      * may apply incorrect entries.*
+      */
+
+    val lastNewEntryIndex = prevLogIndex + entries.length
+    val safeCommitIndex   = math.min(leaderCommit, lastNewEntryIndex)
+
+    // apply after commitIndex updates, not just when new log entries are appended.
+    if (safeCommitIndex > node.commitIndex) {
+      node.commitIndex = safeCommitIndex
+    }
+
+    applyCommittedEntries(node)
+
+    // Recompute tentative state machine if the log was modified
+    node.stateMachine match {
+      case fsm: FileAppendingStateMachine =>
+        val committedSnapshot = fsm.kvSnapshot() // <- we'll define this helper next
+        val logSuffix         = node.log.drop(node.commitIndex + 1)
+        fsm.recomputeTentative(committedSnapshot, logSuffix)
+      case _                              => // no-op
+    }
+
+    (true, modified)
+  }
+
+  def applyCommittedEntriesAndRespondClient(node: RaftNode): Unit = {
+    while (node.lastApplied < node.commitIndex) {
+      node.lastApplied += 1
+      val entry = node.log(node.lastApplied)
+      println(s"[${node.id}] Applying log[${node.lastApplied}]: ${entry.command}")
+
+      val (applied, clientResponse) = node.stateMachine.applyCommand(
+        entry.command,
+        entry.clientId,
+        entry.serialNum
+      )
+
+      entry.replyTo.foreach(_ ! clientResponse)
+
+    }
+  }
+
+  private def handleUnexpectedAppendEntriesResponse(
+      node: RaftNode,
+      context: ActorContext[Command],
+      term: Int
+  ): Behavior[Command] = {
+    if (term > node.currentTerm) {
+      context.log.info(
+        s"[${node.id}] <Follower> Received unexpected AppendEntriesResponse with newer term $term — stepping down"
+      )
+      stepdown(node, term)
+    } else {
+      context.log.debug(
+        s"[${node.id}] <Follower> Received unexpected AppendEntriesResponse (term $term) — ignoring"
+      )
+    }
+    Behaviors.same
   }
 }

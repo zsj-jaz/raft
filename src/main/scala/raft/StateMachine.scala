@@ -1,7 +1,7 @@
 package raft
 
 import java.io.{File, FileWriter}
-import raft.RaftNode.ClientResponse
+import RaftNode.ClientResponse
 
 trait StateMachine {
 

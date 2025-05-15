@@ -1,19 +1,20 @@
-package raft.behaviors
+package raft
 
 import akka.actor.typed.{ActorRef, Behavior}
 import akka.actor.typed.scaladsl.{ActorContext, Behaviors}
-import raft.RaftNode
-import raft.RaftNode._
-import raft.RaftHelpers._
+import RaftNode._
+import RaftHelpers._
 
 object CandidateBehavior {
 
   def apply(node: RaftNode, votesReceived: Int = 1): Behavior[Command] = {
-    Behaviors.withTimers { timers =>
-      Behaviors.setup { context =>
+    Behaviors.withTimers[Command] { timers =>
+      Behaviors.setup[Command] { context =>
+
         if (votesReceived == 1) {
+          // Only do this once when candidate starts
           timers.startSingleTimer(ElectionTimeout, ElectionTimeout, node.randomElectionTimeout())
-          startElection(node, context)
+          startElection(node, context, votesReceived)
         }
 
         Behaviors.receiveMessage {
@@ -22,13 +23,27 @@ object CandidateBehavior {
             redirectClientToMostRecentLeader(node, replyTo)
             Behaviors.same
 
-          case SetPeers(p) =>
-            node.peers = p
+          case ReadRequest(_, _, _, replyTo) =>
+            redirectClientToMostRecentLeader(node, replyTo)
+            Behaviors.same
+
+          case UnstableRead(key, replyTo) =>
+            handleUnstableRead(node, key, replyTo)
+            Behaviors.same
+
+          case SetPeers(p, partition) =>
+            node.peers = p.filterNot(_ == context.self)
+            node.partition =
+              if (partition.nonEmpty) partition.filterNot(_ == context.self)
+              else p.filterNot(_ == context.self)
             Behaviors.same
 
           case ElectionTimeout =>
             context.log.info(s"[${node.id}] <Candidate> Election timeout! Restarting election.")
             node.candidate()
+
+          case BecomeLeader =>
+            node.leader()
 
           case RequestVote(term, candidateId, lastLogIndex, lastLogTerm, replyTo) =>
             handleRequestVote(node, context, term, candidateId, lastLogIndex, lastLogTerm, replyTo)
@@ -57,8 +72,15 @@ object CandidateBehavior {
               replyTo
             )
 
+          case AppendEntriesResponse(term, _, _, _) =>
+            handleUnexpectedAppendEntriesResponse(node, context, term)
+
           case GetState(replyTo) =>
-            replyTo ! RaftState("Candidate", node.currentTerm)
+            replyTo ! RaftState("Candidate", node.id, node.currentTerm, node.log)
+            Behaviors.same
+
+          case GetCommitIndex(replyTo) =>
+            replyTo ! node.commitIndex
             Behaviors.same
 
           case _ => Behaviors.same
@@ -67,11 +89,14 @@ object CandidateBehavior {
     }
   }
 
-  private def startElection(node: RaftNode, context: ActorContext[Command]): Unit = {
+  private def startElection(
+      node: RaftNode,
+      context: ActorContext[Command],
+      votesReceived: Int
+  ): Unit = {
     node.setCurrentTerm(node.currentTerm + 1)
     node.setVotedFor(Some(node.id))
 
-    // if lastLogIndex == 0, lastLogTerm = 0 (dummy entry)
     val lastLogIndex = node.log.size - 1
     val lastLogTerm  = node.log(lastLogIndex).term
 
@@ -79,14 +104,24 @@ object CandidateBehavior {
       s"[${node.id}] Starting election for term ${node.currentTerm} (lastLogIndex=$lastLogIndex, lastLogTerm=$lastLogTerm)"
     )
 
-    node.peers.foreach { peer =>
-      peer ! RequestVote(
-        term = node.currentTerm,
-        candidateId = node.id,
-        lastLogIndex = lastLogIndex,
-        lastLogTerm = lastLogTerm,
-        replyTo = context.self
+    val majority = (node.peers.size / 2) + 1
+
+    if (votesReceived >= majority) {
+      context.log.info(
+        s"[${node.id}] Self-vote already gives majority — becoming leader immediately"
       )
+      context.self ! BecomeLeader
+    } else {
+      node.partition.foreach { peer =>
+        peer ! RequestVote(
+          term = node.currentTerm,
+          candidateId = node.id,
+          lastLogIndex = lastLogIndex,
+          lastLogTerm = lastLogTerm,
+          replyTo = context.self
+        )
+      }
+
     }
   }
 
@@ -100,7 +135,7 @@ object CandidateBehavior {
     if (term > node.currentTerm) {
       context.log.info(s"[${node.id}] Stepping down: received VoteResponse with newer term $term")
       // votedfor = None before transit to follower
-      stepdown(node, term, leaderId = "")
+      stepdown(node, term) // No known leader in this case
       node.follower()
     } else if (term == node.currentTerm && granted) {
       val updatedVotes = votesReceived + 1
@@ -108,7 +143,7 @@ object CandidateBehavior {
       context.log.debug(s"[${node.id}] Got vote (total: $updatedVotes), majority is $majority")
 
       if (updatedVotes >= majority) {
-        context.log.info(s"[${node.id}] 🎉 Elected leader for term ${node.currentTerm}")
+        context.log.info(s"[${node.id}] Elected leader for term ${node.currentTerm}")
         // votedfor stay for voting for itself
         node.leader()
       } else {
@@ -134,7 +169,7 @@ object CandidateBehavior {
         s"[${node.id}] Received RequestVote from $candidateId with newer term $term — stepping down"
       )
       // votedfor = None
-      stepdown(node, term, leaderId = "") // No known leader in this case
+      stepdown(node, term) // No known leader in this case
       transitionToFollowerAndReplay(
         node,
         RequestVote(term, candidateId, lastLogIndex, lastLogTerm, replyTo)
@@ -176,6 +211,25 @@ object CandidateBehavior {
         node,
         AppendEntries(term, leaderId, prevLogIndex, prevLogTerm, entries, leaderCommit, replyTo)
       )
+    }
+  }
+
+  private def handleUnexpectedAppendEntriesResponse(
+      node: RaftNode,
+      context: ActorContext[Command],
+      term: Int
+  ): Behavior[Command] = {
+    if (term > node.currentTerm) {
+      context.log.info(
+        s"[${node.id}] <Candidate> Received unexpected AppendEntriesResponse with newer term $term — stepping down"
+      )
+      stepdown(node, term)
+      node.follower()
+    } else {
+      context.log.debug(
+        s"[${node.id}] <Candidate> Received unexpected AppendEntriesResponse — ignoring"
+      )
+      Behaviors.same
     }
   }
 }

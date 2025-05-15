@@ -2,13 +2,13 @@
     "version": "1.4.0",
     "project": {
         "name": "root",
-        "directory": "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2",
-        "workspaceDir": "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2",
+        "directory": "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft",
+        "workspaceDir": "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft",
         "sources": [
-            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/src/main/scala",
-            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/src/main/scala-3",
-            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/src/main/java",
-            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/target/scala-3.3.5/src_managed/main"
+            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala",
+            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala-3",
+            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/java",
+            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/target/scala-3.3.5/src_managed/main"
         ],
         "dependencies": [
             
@@ -24,11 +24,11 @@
             "/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-core/1.5.8/logback-core-1.5.8.jar",
             "/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/config/1.4.3/config-1.4.3.jar"
         ],
-        "out": "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/.bloop/root",
-        "classesDir": "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/.bloop/root/scala-3/classes",
+        "out": "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.bloop/root",
+        "classesDir": "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.bloop/root/scala-3/classes",
         "resources": [
-            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/src/main/resources",
-            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/target/scala-3.3.5/resource_managed/main"
+            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/resources",
+            "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/target/scala-3.3.5/resource_managed/main"
         ],
         "scala": {
             "organization": "org.scala-lang",
@@ -172,7 +172,7 @@
             "config": {
                 "home": "/Users/pagewu/Library/Caches/Coursier/arc/https/github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.14%252B7/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.14_7.tar.gz/jdk-17.0.14+7/Contents/Home",
                 "options": [
-                    "-Duser.dir=/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2",
+                    "-Duser.dir=/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft",
                     "--enable-preview"
                 ]
             },
@@ -182,11 +182,11 @@
             "runtimeConfig": {
                 "home": "/Users/pagewu/Library/Caches/Coursier/arc/https/github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.14%252B7/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.14_7.tar.gz/jdk-17.0.14+7/Contents/Home",
                 "options": [
-                    "-Duser.dir=/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2"
+                    "-Duser.dir=/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft"
                 ]
             },
             "classpath": [
-                "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/hw2/.bloop/root/scala-3/classes",
+                "/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.bloop/root/scala-3/classes",
                 "/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.3.5/scala3-library_3-3.3.5.jar",
                 "/Users/pagewu/Library/Caches/Coursier/v1/https/repo.akka.io/maven/com/typesafe/akka/akka-actor-typed_3/2.10.0/akka-actor-typed_3-2.10.0.jar",
                 "/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.5.8/logback-classic-1.5.8.jar",

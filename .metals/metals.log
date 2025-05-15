@@ -4473,3 +4473,115 @@ WARNING: Unmatched cancel notification for request id 39808
 2025.05.09 14:56:13 INFO  time: compiled root-test in 0.27s
 2025.05.09 20:59:26 INFO  compiling root (1 scala source)
 2025.05.09 20:59:26 INFO  time: compiled root in 0.27s
+2025.05.14 20:45:11 INFO  Started: Metals version 1.5.3 in folders '/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft' for client Visual Studio Code 1.83.1.
+2025.05.14 20:45:15 INFO  Attempting to connect to the build server...
+2025.05.14 20:45:15 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2025.05.14 20:45:15 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2025.05.14 20:45:15 INFO  Found a Bloop server running
+2025.05.14 20:45:15 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/bsp.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.05.14 20:45:15 INFO  Attempting to connect to the build server...
+2025.05.14 20:45:15 INFO  Found a Bloop server running
+2025.05.14 20:45:15 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/.metals/bsp.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.05.14 20:45:15 INFO  time: Connected to build server in 0.36s
+2025.05.14 20:45:15 INFO  Connected to Build server: Bloop v2.0.10
+2025.05.14 20:45:15 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:16 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+May 14, 2025 8:45:16 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 4
+2025.05.14 20:45:17 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:17 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:17 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:17 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:18 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:18 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:18 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:18 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:19 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:19 WARN  no build target for: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala
+2025.05.14 20:45:19 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:18 INFO  time: indexed workspace in 3.66s
+2025.05.14 20:45:19 WARN  no build target for: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala
+2025.05.14 20:45:19 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:19 WARN  no build target for: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala
+2025.05.14 20:45:20 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:20 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:22 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:22 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:22 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:23 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:31 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:31 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:31 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:31 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:33 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:33 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:33 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:34 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:34 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:34 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:35 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:35 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:35 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:35 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:35 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:35 WARN  no build target for: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala
+2025.05.14 20:45:35 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:38 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:38 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:38 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:47 INFO  running '/Users/pagewu/Library/Application Support/Coursier/bin/sbt -Dbloop.export-jar-classifiers=sources bloopInstall'
+2025.05.14 20:45:47 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/project/metals.sbt. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:47 WARN  no build target for: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/metals.sbt
+2025.05.14 20:45:47 WARN  no build target for: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/project/metals.sbt
+2025.05.14 20:45:47 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:48 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/metals.sbt. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:45:48 INFO  [info] welcome to sbt 1.10.11 (Eclipse Adoptium Java 17.0.14)
+2025.05.14 20:45:48 INFO  [info] loading settings for project raft-build-build from metals.sbt...
+2025.05.14 20:45:49 INFO  [info] loading project definition from /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/project
+2025.05.14 20:45:49 INFO  [info] loading settings for project raft-build from metals.sbt...
+2025.05.14 20:45:49 INFO  [info] loading project definition from /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project
+2025.05.14 20:45:51 INFO  [success] Generated .bloop/raft-build.json
+2025.05.14 20:45:51 INFO  [warn] Removed stale /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/.bloop/hw2-build.json
+2025.05.14 20:45:51 INFO  [success] Total time: 1 s, completed May 14, 2025, 8:45:51 PM
+2025.05.14 20:45:51 INFO  [info] loading settings for project root from build.sbt...
+2025.05.14 20:45:51 INFO  [info] set current project to raft (in build file:/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/)
+2025.05.14 20:45:51 INFO  [success] Generated .bloop/root-test.json
+2025.05.14 20:45:51 INFO  [success] Generated .bloop/root.json
+2025.05.14 20:45:51 INFO  [success] Total time: 0 s, completed May 14, 2025, 8:45:52 PM
+2025.05.14 20:45:52 INFO  time: ran 'sbt bloopInstall' in 5.32s
+2025.05.14 20:45:52 INFO  skipping build import with status 'Started'
+2025.05.14 20:45:58 INFO  Disconnecting from Bloop session...
+2025.05.14 20:45:58 INFO  Shut down connection with build server.
+2025.05.14 20:45:58 INFO  Shut down connection with build server.
+2025.05.14 20:45:58 INFO  Attempting to connect to the build server...
+2025.05.14 20:45:58 INFO  No running Bloop server found, starting one.
+2025.05.14 20:45:58 INFO  Starting compilation server
+2025.05.14 20:46:00 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/bsp.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.05.14 20:46:00 INFO  Attempting to connect to the build server...
+2025.05.14 20:46:00 INFO  Found a Bloop server running
+2025.05.14 20:46:00 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/.metals/bsp.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.05.14 20:46:00 INFO  time: Connected to build server in 1.61s
+2025.05.14 20:46:00 INFO  Connected to Build server: Bloop v2.0.10
+2025.05.14 20:46:00 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.5
+2025.05.14 20:46:03 INFO  compiling root (11 scala sources)
+2025.05.14 20:46:03 INFO  time: indexed workspace in 2.94s
+2025.05.14 20:46:03 INFO  Deduplicating compilation of root from bsp client 'Metals 1.5.3' (since 3.455s)
+2025.05.14 20:46:03 INFO  compiling root (11 scala sources)
+2025.05.14 20:46:05 INFO  time: compiled root in 1.69s
+2025.05.14 20:46:18 INFO  compiling root (11 scala sources)
+2025.05.14 20:46:20 INFO  time: compiled root in 2.31s
+2025.05.14 20:46:32 INFO  compiling root (1 scala source)
+2025.05.14 20:46:32 INFO  time: compiled root in 0.58s
+2025.05.14 20:46:32 INFO  compiling root (3 scala sources)
+2025.05.14 20:46:32 INFO  time: compiled root in 0.38s
+2025.05.14 20:46:53 INFO  time: compiled root in 85ms
+2025.05.14 20:47:03 INFO  compiling root (1 scala source)
+2025.05.14 20:47:03 INFO  time: compiled root in 0.2s
+2025.05.14 20:47:10 INFO  compiling root (1 scala source)
+2025.05.14 20:47:10 INFO  time: compiled root in 0.34s
+2025.05.14 20:47:10 INFO  compiling root (2 scala sources)
+2025.05.14 20:47:10 INFO  time: compiled root in 0.55s
+2025.05.14 20:49:32 INFO  compiling root (6 scala sources)
+2025.05.14 20:49:33 INFO  time: compiled root in 1.53s
+2025.05.14 20:49:33 INFO  compiling root (11 scala sources)
+2025.05.14 20:49:35 INFO  time: compiled root in 1.61s
