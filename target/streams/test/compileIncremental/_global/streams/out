@@ -2,165 +2,57 @@
 [0m[[0m[0mdebug[0m] [0m[0mIncrementalCompile.incrementalCompile[0m
 [0m[[0m[0mdebug[0m] [0m[0mprevious = Stamps for: 14 products, 14 sources, 9 libraries[0m
 [0m[[0m[0mdebug[0m] [0m[0mcurrent source = Set(${BASE}/src/test/scala/raft/ClientRedirectSpec.scala, ${BASE}/src/test/scala/raft/LeaderAppendOnlySpec.scala, ${BASE}/src/test/scala/raft/SplitBrainSpec.scala, ${BASE}/src/test/scala/raft/ElectionSafetyWithFailureSpec.scala, ${BASE}/src/test/scala/raft/PartitionSpec.scala, ${BASE}/src/test/scala/raft/AppendEntriesSpec.scala, ${BASE}/src/test/scala/raft/ApplyOnceSpec.scala, ${BASE}/src/test/scala/raft/LogMatchingNaturalSpec.scala, ${BASE}/src/test/scala/raft/CommitEntrySpec.scala, ${BASE}/src/test/scala/raft/RaftVoteSpec.scala, ${BASE}/src/test/scala/raft/ElectionAndRecoveryWithClientSpec.scala, ${BASE}/src/test/scala/raft/ReappearingIndexSpec.scala, ${BASE}/src/test/scala/raft/ReadRequestSpec.scala, ${BASE}/src/test/scala/raft/LogMatchingWithChurnSpec.scala)[0m
-[0m[[0m[0mdebug[0m] [0m[0m> initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/test/scala/raft/LogMatchingNaturalSpec.scala, ${BASE}/src/test/scala/raft/LogMatchingWithChurnSpec.scala), unmodified = ...),Set(),Set(),API Changes: Set(NamesChange(raft.RaftNode$,ModifiedNames(changes = UsedName(Retry,[Default]), UsedName(Command,[Default]), UsedName(ClientRequest,[Default]), UsedName(Tick,[Default]), UsedName(UnstableRead,[Default]), UsedName(ClientResponse,[Default]))), NamesChange(raft.RaftNode$WriteRequest,ModifiedNames(changes = UsedName(raft;RaftNode$;ClientRequest;init;,[Default]), UsedName(WriteRequest,[Default]))), NamesChange(raft.RaftNode$ReadRequest,ModifiedNames(changes = UsedName(ReadRequest,[Default]), UsedName(raft;RaftNode$;ClientRequest;init;,[Default]))), NamesChange(raft.RaftNode$ReadResponse,ModifiedNames(changes = UsedName(raft;RaftNode$;Command;init;,[Default]), UsedName(ReadResponse,[Default]))), NamesChange(raft.RaftNode,ModifiedNames(changes = UsedName(Retry,[Default]), UsedName(Command,[Default]), UsedName(ClientRequest,[Default]), UsedName(Tick,[Default]), UsedName(UnstableRead,[Default]), UsedName(ClientResponse,[Default]))), NamesChange(raft.RaftNode$ReadRequest$,ModifiedNames(changes = UsedName(ReadRequest,[Default]), UsedName(raft;RaftNode$;ClientRequest;init;,[Default]))), NamesChange(raft.RaftNode$Command,ModifiedNames(changes = UsedName(Command,[Default]))), NamesChange(raft.LongLivedClient$,ModifiedNames(changes = UsedName(apply,[Default]))), NamesChange(raft.RaftNode$WriteRequest$,ModifiedNames(changes = UsedName(raft;RaftNode$;ClientRequest;init;,[Default]), UsedName(WriteRequest,[Default]))), NamesChange(raft.RaftNode$WriteResponse,ModifiedNames(changes = UsedName(WriteResponse,[Default]), UsedName(raft;RaftNode$;Command;init;,[Default]))), NamesChange(raft.RaftNode$ClientResponse,ModifiedNames(changes = UsedName(raft;RaftNode$;Command;init;,[Default]), UsedName(ClientResponse,[Default])))))[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode$ has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(Retry,[Default]), UsedName(Command,[Default]), UsedName(ClientRequest,[Default]), UsedName(Tick,[Default]), UsedName(UnstableRead,[Default]), UsedName(ClientResponse,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode$: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode$.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReappearingIndexSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ApplyOnceSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LeaderAppendOnlySpec: [ClientResponse, Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ClientRedirectSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.CommitEntrySpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ElectionSafetyWithFailureSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LogMatchingWithChurnSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ElectionAndRecoveryWithClientSpec: [ClientResponse, Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LogMatchingNaturalSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.SplitBrainSpec: [Command, ClientResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReadRequestSpec: [ClientResponse, Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.RaftVoteSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.AppendEntriesSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.PartitionSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode$WriteRequest has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(raft;RaftNode$;ClientRequest;init;,[Default]), UsedName(WriteRequest,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode$WriteRequest: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode$WriteRequest.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LeaderAppendOnlySpec: [WriteRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ClientRedirectSpec: [WriteRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ElectionAndRecoveryWithClientSpec: [WriteRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.SplitBrainSpec: [WriteRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode$ReadRequest has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(ReadRequest,[Default]), UsedName(raft;RaftNode$;ClientRequest;init;,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode$ReadRequest: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode$ReadRequest.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReadRequestSpec: [ReadRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode$ReadResponse has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(raft;RaftNode$;Command;init;,[Default]), UsedName(ReadResponse,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode$ReadResponse: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode$ReadResponse.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReadRequestSpec: [ReadResponse][0m
+[0m[[0m[0mdebug[0m] [0m[0m> initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/test/scala/raft/SplitBrainSpec.scala), unmodified = ...),Set(),Set(),API Changes: Set(NamesChange(raft.RaftNode,ModifiedNames(changes = UsedName(persistCurrentTerm,[Default]), UsedName(persistVotedFor,[Default]), UsedName(setVotedFor,[Default]), UsedName(setCurrentTerm,[Default])))))[0m
 [0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(Retry,[Default]), UsedName(Command,[Default]), UsedName(ClientRequest,[Default]), UsedName(Tick,[Default]), UsedName(UnstableRead,[Default]), UsedName(ClientResponse,[Default]).[0m
+[0m[[0m[0mdebug[0m] [0m[0m	UsedName(persistCurrentTerm,[Default]), UsedName(persistVotedFor,[Default]), UsedName(setVotedFor,[Default]), UsedName(setCurrentTerm,[Default]).[0m
 [0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
 [0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode: Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
 [0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
 [0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReappearingIndexSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.CommitEntrySpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReadRequestSpec: [ClientResponse, Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode$ReadRequest$ has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(ReadRequest,[Default]), UsedName(raft;RaftNode$;ClientRequest;init;,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode$ReadRequest$: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode$ReadRequest$.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReadRequestSpec: [ReadRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode$Command has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(Command,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode$Command: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode$Command.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReappearingIndexSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ApplyOnceSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LeaderAppendOnlySpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ClientRedirectSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.CommitEntrySpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ElectionSafetyWithFailureSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LogMatchingWithChurnSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ElectionAndRecoveryWithClientSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LogMatchingNaturalSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.SplitBrainSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReadRequestSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.RaftVoteSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.AppendEntriesSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.PartitionSpec: [Command][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.LongLivedClient$ has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(apply,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.LongLivedClient$: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.LongLivedClient$.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LogMatchingWithChurnSpec: [apply][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LogMatchingNaturalSpec: [apply][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode$WriteRequest$ has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(raft;RaftNode$;ClientRequest;init;,[Default]), UsedName(WriteRequest,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode$WriteRequest$: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode$WriteRequest$.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LeaderAppendOnlySpec: [WriteRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ClientRedirectSpec: [WriteRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ElectionAndRecoveryWithClientSpec: [WriteRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.SplitBrainSpec: [WriteRequest][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode$WriteResponse has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(WriteResponse,[Default]), UsedName(raft;RaftNode$;Command;init;,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode$WriteResponse: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode$WriteResponse.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReappearingIndexSpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ApplyOnceSpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LeaderAppendOnlySpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ClientRedirectSpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.CommitEntrySpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ElectionAndRecoveryWithClientSpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.SplitBrainSpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReadRequestSpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.RaftVoteSpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.AppendEntriesSpec: [WriteResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe raft.RaftNode$ClientResponse has the following regular definitions changed:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	UsedName(raft;RaftNode$;Command;init;,[Default]), UsedName(ClientResponse,[Default]).[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0m[0mdebug[0m] [0m[0mFiles invalidated by inheriting from (external) raft.RaftNode$ClientResponse: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mNow invalidating by inheritance (internally).[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting direct dependencies of all classes transitively invalidated by inheritance.[0m
-[0m[[0m[0mdebug[0m] [0m[0mGetting classes that directly depend on (external) raft.RaftNode$ClientResponse.[0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.LeaderAppendOnlySpec: [ClientResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ElectionAndRecoveryWithClientSpec: [ClientResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.SplitBrainSpec: [ClientResponse][0m
-[0m[[0m[0mdebug[0m] [0m[0mThe following modified names cause invalidation of raft.ReadRequestSpec: [ClientResponse][0m
+[0m[[0m[0mdebug[0m] [0m[0mNone of the modified names appears in source file of raft.ReappearingIndexSpec. This dependency is not being considered for invalidation.[0m
+[0m[[0m[0mdebug[0m] [0m[0mNone of the modified names appears in source file of raft.CommitEntrySpec. This dependency is not being considered for invalidation.[0m
+[0m[[0m[0mdebug[0m] [0m[0mNone of the modified names appears in source file of raft.ReadRequestSpec. This dependency is not being considered for invalidation.[0m
 [0m[[0m[0mdebug[0m] [0m[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mInitial source changes:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	removed: Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0m	added: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0m	modified: Set(${BASE}/src/test/scala/raft/LogMatchingNaturalSpec.scala, ${BASE}/src/test/scala/raft/LogMatchingWithChurnSpec.scala)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modified: Set(${BASE}/src/test/scala/raft/SplitBrainSpec.scala)[0m
 [0m[[0m[0mdebug[0m] [0m[0mInvalidated products: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mExternal API changes: API Changes: Set(NamesChange(raft.RaftNode$,ModifiedNames(changes = UsedName(Retry,[Default]), UsedName(Command,[Default]), UsedName(ClientRequest,[Default]), UsedName(Tick,[Default]), UsedName(UnstableRead,[Default]), UsedName(ClientResponse,[Default]))), NamesChange(raft.RaftNode$WriteRequest,ModifiedNames(changes = UsedName(raft;RaftNode$;ClientRequest;init;,[Default]), UsedName(WriteRequest,[Default]))), NamesChange(raft.RaftNode$ReadRequest,ModifiedNames(changes = UsedName(ReadRequest,[Default]), UsedName(raft;RaftNode$;ClientRequest;init;,[Default]))), NamesChange(raft.RaftNode$ReadResponse,ModifiedNames(changes = UsedName(raft;RaftNode$;Command;init;,[Default]), UsedName(ReadResponse,[Default]))), NamesChange(raft.RaftNode,ModifiedNames(changes = UsedName(Retry,[Default]), UsedName(Command,[Default]), UsedName(ClientRequest,[Default]), UsedName(Tick,[Default]), UsedName(UnstableRead,[Default]), UsedName(ClientResponse,[Default]))), NamesChange(raft.RaftNode$ReadRequest$,ModifiedNames(changes = UsedName(ReadRequest,[Default]), UsedName(raft;RaftNode$;ClientRequest;init;,[Default]))), NamesChange(raft.RaftNode$Command,ModifiedNames(changes = UsedName(Command,[Default]))), NamesChange(raft.LongLivedClient$,ModifiedNames(changes = UsedName(apply,[Default]))), NamesChange(raft.RaftNode$WriteRequest$,ModifiedNames(changes = UsedName(raft;RaftNode$;ClientRequest;init;,[Default]), UsedName(WriteRequest,[Default]))), NamesChange(raft.RaftNode$WriteResponse,ModifiedNames(changes = UsedName(WriteResponse,[Default]), UsedName(raft;RaftNode$;Command;init;,[Default]))), NamesChange(raft.RaftNode$ClientResponse,ModifiedNames(changes = UsedName(raft;RaftNode$;Command;init;,[Default]), UsedName(ClientResponse,[Default]))))[0m
+[0m[[0m[0mdebug[0m] [0m[0mExternal API changes: API Changes: Set(NamesChange(raft.RaftNode,ModifiedNames(changes = UsedName(persistCurrentTerm,[Default]), UsedName(persistVotedFor,[Default]), UsedName(setVotedFor,[Default]), UsedName(setCurrentTerm,[Default]))))[0m
 [0m[[0m[0mdebug[0m] [0m[0mModified binary dependencies: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0mInitial directly invalidated classes: Set(raft.LogMatchingNaturalSpec, raft.LogMatchingWithChurnSpec)[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial directly invalidated classes: Set(raft.SplitBrainSpec)[0m
 [0m[[0m[0mdebug[0m] [0m[0mSources indirectly invalidated by:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	product: Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0m	binary dep: Set()[0m
-[0m[[0m[0mdebug[0m] [0m[0m	external source: Set(raft.ReappearingIndexSpec, raft.ApplyOnceSpec, raft.LeaderAppendOnlySpec, raft.ClientRedirectSpec, raft.CommitEntrySpec, raft.ElectionSafetyWithFailureSpec, raft.LogMatchingWithChurnSpec, raft.ElectionAndRecoveryWithClientSpec, raft.LogMatchingNaturalSpec, raft.SplitBrainSpec, raft.ReadRequestSpec, raft.RaftVoteSpec, raft.AppendEntriesSpec, raft.PartitionSpec)[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated classes: Set(raft.ReappearingIndexSpec, raft.ApplyOnceSpec, raft.LeaderAppendOnlySpec, raft.ClientRedirectSpec, raft.CommitEntrySpec, raft.ElectionSafetyWithFailureSpec, raft.LogMatchingWithChurnSpec, raft.ElectionAndRecoveryWithClientSpec, raft.LogMatchingNaturalSpec, raft.SplitBrainSpec, raft.ReadRequestSpec, raft.RaftVoteSpec, raft.AppendEntriesSpec, raft.PartitionSpec)[0m
-[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated sources:Set(${BASE}/src/test/scala/raft/LogMatchingNaturalSpec.scala, ${BASE}/src/test/scala/raft/LogMatchingWithChurnSpec.scala)[0m
-[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: raft.ReappearingIndexSpec, raft.ApplyOnceSpec, raft.LeaderAppendOnlySpec, raft.ClientRedirectSpec, raft.CommitEntrySpec, raft.ElectionSafetyWithFailureSpec, raft.LogMatchingWithChurnSpec, raft.ElectionAndRecoveryWithClientSpec, raft.LogMatchingNaturalSpec, raft.SplitBrainSpec, raft.ReadRequestSpec, raft.RaftVoteSpec, raft.AppendEntriesSpec, raft.PartitionSpec[0m
-[0m[[0m[0mdebug[0m] [0m[0mRecompiling all sources: number of invalidated sources > 50.0 percent of all sources[0m
+[0m[[0m[0mdebug[0m] [0m[0m	external source: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated classes: Set(raft.SplitBrainSpec)[0m
+[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated sources:Set(${BASE}/src/test/scala/raft/SplitBrainSpec.scala)[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: raft.SplitBrainSpec[0m
 [0m[[0m[0mdebug[0m] [0m[0mcompilation cycle 1[0m
-[0m[[0m[0minfo[0m] [0m[0mcompiling 14 Scala sources to /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/target/scala-3.3.5/test-classes ...[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/target/scala-3.3.5/test-classes ...[0m
 [0m[[0m[0mdebug[0m] [0m[0mReturning already retrieved and compiled bridge: /Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-sbt-bridge/3.3.5/scala3-sbt-bridge-3.3.5.jar.[0m
-[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler d1b28cf for Scala Compiler version 3.3.5[0m
+[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler 6638b286 for Scala Compiler version 3.3.5[0m
 [0m[[0m[0mdebug[0m] [0m[0m[zinc] The Scala compiler is invoked with:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	-classpath[0m
 [0m[[0m[0mdebug[0m] [0m[0m	/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/target/scala-3.3.5/test-classes:/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/target/scala-3.3.5/classes:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.3.5/scala3-library_3-3.3.5.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo.akka.io/maven/com/typesafe/akka/akka-actor-typed_3/2.10.0/akka-actor-typed_3-2.10.0.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-classic/1.5.8/logback-classic-1.5.8.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo.akka.io/maven/com/typesafe/akka/akka-actor-testkit-typed_3/2.10.0/akka-actor-testkit-typed_3-2.10.0.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest_3/3.2.15/scalatest_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.15/scala-library-2.13.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo.akka.io/maven/com/typesafe/akka/akka-actor_3/2.10.0/akka-actor_3-2.10.0.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo.akka.io/maven/com/typesafe/akka/akka-slf4j_3/2.10.0/akka-slf4j_3-2.10.0.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/ch/qos/logback/logback-core/1.5.8/logback-core-1.5.8.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo.akka.io/maven/com/typesafe/akka/akka-testkit_3/2.10.0/akka-testkit_3-2.10.0.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-core_3/3.2.15/scalatest-core_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-featurespec_3/3.2.15/scalatest-featurespec_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-flatspec_3/3.2.15/scalatest-flatspec_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-freespec_3/3.2.15/scalatest-freespec_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-funsuite_3/3.2.15/scalatest-funsuite_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-funspec_3/3.2.15/scalatest-funspec_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-propspec_3/3.2.15/scalatest-propspec_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-refspec_3/3.2.15/scalatest-refspec_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-wordspec_3/3.2.15/scalatest-wordspec_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-diagrams_3/3.2.15/scalatest-diagrams_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-matchers-core_3/3.2.15/scalatest-matchers-core_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-shouldmatchers_3/3.2.15/scalatest-shouldmatchers_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-mustmatchers_3/3.2.15/scalatest-mustmatchers_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/config/1.4.3/config-1.4.3.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalactic/scalactic_3/3.2.15/scalactic_3-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalatest/scalatest-compatible/3.2.15/scalatest-compatible-3.2.15.jar:/Users/pagewu/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_3/2.1.0/scala-xml_3-2.1.0.jar[0m
-[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 4.599983208 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 2.467883917 s[0m
 [0m[[0m[0mdebug[0m] [0m[0mdone compiling[0m
+[0m[[0m[0mdebug[0m] [0m[0mInvalidating (transitively) by inheritance from raft.SplitBrainSpec...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: raft.SplitBrainSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0mInvalidated by transitive inheritance dependency: Set(raft.SplitBrainSpec)[0m
+[0m[[0m[0mdebug[0m] [0m[0mChange NamesChange(raft.SplitBrainSpec,ModifiedNames(changes = UsedName(assertTypeError,[Default]), UsedName(assertCompiles,[Default]), UsedName(assertDoesNotCompile,[Default]))) invalidates 1 classes due to The raft.SplitBrainSpec has the following regular definitions changed:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	UsedName(assertTypeError,[Default]), UsedName(assertCompiles,[Default]), UsedName(assertDoesNotCompile,[Default]).[0m
+[0m[[0m[0mdebug[0m] [0m[0m  > by transitive inheritance: Set(raft.SplitBrainSpec)[0m
+[0m[[0m[0mdebug[0m] [0m[0m  > [0m
+[0m[[0m[0mdebug[0m] [0m[0m  > [0m
+[0m[[0m[0mdebug[0m] [0m[0m  > [0m
+[0m[[0m[0mdebug[0m] [0m[0m        [0m
+[0m[[0m[0mdebug[0m] [0m[0mNew invalidations:[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: [0m
+[0m[[0m[0mdebug[0m] [0m[0mPreviously invalidated, but (transitively) depend on new invalidations:[0m
+[0m[[0m[0mdebug[0m] [0m[0mFinal step, transitive dependencies:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: raft.SplitBrainSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0mInvalidated macros due to upstream dependencies change: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mNo classes were invalidated.[0m

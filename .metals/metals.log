@@ -5475,3 +5475,33 @@ WARNING: Unmatched cancel notification for request id 18435
 2025.05.20 23:40:02 INFO  time: compiled root in 0.17s
 May 20, 2025 11:43:12 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 WARNING: Unmatched cancel notification for request id 18604
+May 21, 2025 12:29:07 AM scala.meta.internal.metals.StdReporter $anonfun$create$1
+WARNING: empty definition using pc, found symbol in pc: `<none>`. (full report at: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/.reports/metals-full/2025-05-20/r_empty-definition_(root-test)_18-46-52-702.md)
+2025.05.21 00:29:07 INFO  compiling root-test (1 scala source)
+2025.05.21 00:29:07 INFO  time: compiled root-test in 0.32s
+2025.05.21 00:31:36 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/dap-server.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/dap-server.trace.json
+2025.05.21 00:31:36 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/dap-client.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/dap-client.trace.json
+2025.05.21 00:31:36 INFO  Starting debug proxy for [raft.SplitBrainSpec()]
+2025.05.21 00:31:36 INFO  Initialized Scala 3 decoder in 3 milliseconds
+2025.05.21 00:31:36 INFO  Trying to attach to remote debuggee VM localhost:62953 .
+2025.05.21 00:31:37 INFO  Attaching to debuggee VM succeeded.
+2025.05.21 00:31:45 INFO  Canceling debug proxy for [raft.SplitBrainSpec()]
+2025.05.21 00:31:45 INFO  Closing debug server tcp://0.0.0.0:62948
+2025.05.21 01:05:21 INFO  compiling root-test (1 scala source)
+2025.05.21 01:05:21 INFO  time: compiled root-test in 0.38s
+2025.05.21 01:05:47 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/dap-server.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/dap-server.trace.json
+2025.05.21 01:05:47 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/dap-client.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/dap-client.trace.json
+2025.05.21 01:05:47 INFO  Starting debug proxy for [raft.ReappearingIndexSpec()]
+2025.05.21 01:05:47 INFO  Initialized Scala 3 decoder in 0 milliseconds
+2025.05.21 01:05:47 INFO  Trying to attach to remote debuggee VM localhost:63273 .
+2025.05.21 01:05:47 INFO  Attaching to debuggee VM succeeded.
+2025.05.21 01:05:48 INFO  Canceling debug proxy for [raft.ReappearingIndexSpec()]
+2025.05.21 01:05:48 INFO  Closing debug server tcp://0.0.0.0:63269
+2025.05.21 01:06:05 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/dap-server.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/dap-server.trace.json
+2025.05.21 01:06:05 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/dap-client.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/dap-client.trace.json
+2025.05.21 01:06:05 INFO  Starting debug proxy for [raft.SplitBrainSpec()]
+2025.05.21 01:06:05 INFO  Initialized Scala 3 decoder in 0 milliseconds
+2025.05.21 01:06:05 INFO  Trying to attach to remote debuggee VM localhost:63287 .
+2025.05.21 01:06:05 INFO  Attaching to debuggee VM succeeded.
+2025.05.21 01:06:12 INFO  Canceling debug proxy for [raft.SplitBrainSpec()]
+2025.05.21 01:06:12 INFO  Closing debug server tcp://0.0.0.0:63283

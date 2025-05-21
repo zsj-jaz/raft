@@ -10,14 +10,13 @@ import scala.concurrent.duration._
 
 class SplitBrainSpec extends AnyWordSpecLike {
 
-  val config = ConfigFactory.parseString("""
+  val config  = ConfigFactory.parseString("""
     akka.loglevel = "INFO"
     akka.stdout-loglevel = "INFO"
   """)
-
   val testKit = ActorTestKit(config)
 
-  "Raft cluster" should {
+  "SplitBrainSpec" should {
     "recover after split-brain and commit after healing" in {
       val nodes = (1 to 5).map { i =>
         val state = new PersistentState(s"n$i")
@@ -57,7 +56,7 @@ class SplitBrainSpec extends AnyWordSpecLike {
 
       // Request after healing — should succeed
       val client3 = testKit.createTestProbe[ClientResponse]()
-      n3 ! WriteRequest("SET k=2", "client", 2, client3.ref)
+      n1 ! WriteRequest("SET k=2", "client", 2, client3.ref)
       client3.expectMessageType[ClientResponse](2.seconds)
     }
   }
