@@ -106,8 +106,7 @@ object FollowerBehavior {
       Behaviors.same
     } else {
       if (term > node.currentTerm) {
-        node.persistCurrentTerm(term)
-        node.persistVotedFor(None)
+        stepdown(node, term)
       }
       // 5.4.1
       val myLastIndex = node.log.size - 1
@@ -121,7 +120,7 @@ object FollowerBehavior {
       if (notVotedOrVotedForYou && upToDate) {
         context.log.info(s"[${node.id}] <Follower> Granting vote to $candidateId for term $term")
         node.persistVotedFor(Some(candidateId))
-        // only reset timer if grant vote
+        // reset timer if grant vote
         timers.startSingleTimer(ElectionTimeout, ElectionTimeout, node.randomElectionTimeout())
         replyTo ! VoteResponse(term, voteGranted = true)
       } else {
@@ -268,13 +267,9 @@ object FollowerBehavior {
       * those won’t be removed, and if leaderCommit is beyond the entries the leader sent you, you
       * may apply incorrect entries.*
       */
-
     val lastNewEntryIndex = prevLogIndex + entries.length
-    val safeCommitIndex   = math.min(leaderCommit, lastNewEntryIndex)
-
-    // apply after commitIndex updates, not just when new log entries are appended.
-    if (safeCommitIndex > node.commitIndex) {
-      node.commitIndex = safeCommitIndex
+    if (leaderCommit > node.commitIndex) {
+      node.commitIndex = math.min(leaderCommit, lastNewEntryIndex)
     }
 
     applyCommittedEntries(node)

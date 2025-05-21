@@ -5465,3 +5465,13 @@ WARNING: empty definition using pc, found symbol in pc: `<none>`. (full report a
 2025.05.20 23:01:05 INFO  compiling root (4 scala sources)
 2025.05.20 23:01:06 WARN  Could not load snapshot text for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala
 2025.05.20 23:01:05 INFO  time: compiled root in 0.32s
+2025.05.20 23:28:49 INFO  compiling root (1 scala source)
+2025.05.20 23:28:49 INFO  time: compiled root in 0.2s
+2025.05.20 23:38:14 INFO  compiling root (1 scala source)
+2025.05.20 23:38:14 INFO  time: compiled root in 0.24s
+May 20, 2025 11:38:31 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 18435
+2025.05.20 23:40:02 INFO  compiling root (1 scala source)
+2025.05.20 23:40:02 INFO  time: compiled root in 0.17s
+May 20, 2025 11:43:12 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 18604
