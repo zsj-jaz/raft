@@ -5456,3 +5456,7 @@ WARNING: empty definition using pc, found symbol in pc: `<none>`. (full report a
 2025.05.20 20:17:45 INFO  time: compiled root in 0.12s
 2025.05.20 20:21:08 WARN  Could not find semantic tokens for: file:///Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/RaftProxy.scala
 2025.05.20 20:21:09 WARN  Could not find semantic tokens for: file:///Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/RaftProxy.scala
+2025.05.20 22:53:55 INFO  compiling root (1 scala source)
+2025.05.20 22:53:55 INFO  time: compiled root in 0.25s
+2025.05.20 22:53:58 INFO  compiling root (1 scala source)
+2025.05.20 22:53:58 INFO  time: compiled root in 0.24s

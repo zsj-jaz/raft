@@ -186,10 +186,15 @@ object LeaderBehavior {
         }
 
         if (term == node.currentTerm && success) {
-          val follower = sender
-          matchIndex = matchIndex.updated(follower.path.name, matchIndexIfSuccess)
-          nextIndex = nextIndex.updated(follower.path.name, matchIndexIfSuccess + 1)
-          context.log.debug(s"[${node.id}] <Leader> Updated nextIndex and matchIndex for follower")
+          val follower     = sender
+          val currentMatch = matchIndex.getOrElse(follower.path.name, 0)
+          if (matchIndexIfSuccess > currentMatch) {
+            matchIndex = matchIndex.updated(follower.path.name, matchIndexIfSuccess)
+            nextIndex = nextIndex.updated(follower.path.name, matchIndexIfSuccess + 1)
+            context.log.debug(
+              s"[${node.id}] <Leader> Updated nextIndex and matchIndex for follower"
+            )
+          }
 
           tryAdvanceCommitIndex()
 
