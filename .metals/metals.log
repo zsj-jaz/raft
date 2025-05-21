@@ -5460,3 +5460,8 @@ WARNING: empty definition using pc, found symbol in pc: `<none>`. (full report a
 2025.05.20 22:53:55 INFO  time: compiled root in 0.25s
 2025.05.20 22:53:58 INFO  compiling root (1 scala source)
 2025.05.20 22:53:58 INFO  time: compiled root in 0.24s
+2025.05.20 23:00:52 INFO  compiling root (4 scala sources)
+2025.05.20 23:00:52 INFO  time: compiled root in 0.28s
+2025.05.20 23:01:05 INFO  compiling root (4 scala sources)
+2025.05.20 23:01:06 WARN  Could not load snapshot text for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/CandidateBehavior.scala
+2025.05.20 23:01:05 INFO  time: compiled root in 0.32s

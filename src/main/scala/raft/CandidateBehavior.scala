@@ -93,8 +93,8 @@ object CandidateBehavior {
       context: ActorContext[Command],
       votesReceived: Int
   ): Unit = {
-    node.setCurrentTerm(node.currentTerm + 1)
-    node.setVotedFor(Some(node.id))
+    node.persistCurrentTerm(node.currentTerm + 1)
+    node.persistVotedFor(Some(node.id))
 
     val lastLogIndex = node.log.size - 1
     val lastLogTerm  = node.log(lastLogIndex).term

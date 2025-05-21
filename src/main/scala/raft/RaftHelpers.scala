@@ -30,8 +30,10 @@ object RaftHelpers {
 
   private def stepdown(node: RaftNode, term: Int, leaderIdOpt: Option[String]): Unit = {
     if (term > node.currentTerm) {
-      node.setCurrentTerm(term)
-      node.setVotedFor(None) // only reset if term increases to avoid double vote in the same term
+      node.persistCurrentTerm(term)
+      node.persistVotedFor(
+        None
+      ) // only reset if term increases to avoid double vote in the same term
     }
     leaderIdOpt.foreach(id => node.setLeaderId(Some(id)))
   }

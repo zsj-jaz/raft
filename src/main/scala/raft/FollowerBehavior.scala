@@ -106,8 +106,8 @@ object FollowerBehavior {
       Behaviors.same
     } else {
       if (term > node.currentTerm) {
-        node.setCurrentTerm(term)
-        node.setVotedFor(None)
+        node.persistCurrentTerm(term)
+        node.persistVotedFor(None)
       }
       // 5.4.1
       val myLastIndex = node.log.size - 1
@@ -120,7 +120,7 @@ object FollowerBehavior {
 
       if (notVotedOrVotedForYou && upToDate) {
         context.log.info(s"[${node.id}] <Follower> Granting vote to $candidateId for term $term")
-        node.setVotedFor(Some(candidateId))
+        node.persistVotedFor(Some(candidateId))
         // only reset timer if grant vote
         timers.startSingleTimer(ElectionTimeout, ElectionTimeout, node.randomElectionTimeout())
         replyTo ! VoteResponse(term, voteGranted = true)

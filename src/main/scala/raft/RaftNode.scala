@@ -125,12 +125,12 @@ class RaftNode private (val id: String, val state: PersistentState) {
   def votedFor: Option[String] = state.votedFor
   def log: List[LogEntry]      = state.log
 
-  def setCurrentTerm(term: Int): Unit = {
+  def persistCurrentTerm(term: Int): Unit = {
     state.currentTerm = term
     state.persist()
   }
 
-  def setVotedFor(id: Option[String]): Unit = {
+  def persistVotedFor(id: Option[String]): Unit = {
     state.votedFor = id
     state.persist()
   }
