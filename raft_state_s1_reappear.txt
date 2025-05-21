@@ -1,6 +1,0 @@
-4
-null
-0|<dummy>||-1
-1|SET x=1|cli1|1
-1|SET y=2|cli2|2
-4|SET u=5|cli5|5
