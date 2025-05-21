@@ -1,4 +1,0 @@
-3
-leader123
-0|<dummy>
-3|cmd

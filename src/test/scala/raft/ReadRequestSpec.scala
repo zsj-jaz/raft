@@ -50,9 +50,8 @@ class ReadRequestSpec extends AnyWordSpecLike with BeforeAndAfterAll {
       )
 
       // Expect the correct read result
-      val response = client.expectMessageType[ClientResponse]
-      assert(response.success)
-      assert(response.message == "x=1", s"Expected x=1, but got: ${response.message}")
+      val response = client.expectMessageType[ReadResponse]
+      assert(response.value == "x=1", s"Expected x=1, but got: ${response.value}")
 
     }
   }

@@ -3,6 +3,7 @@ package raft
 
 import akka.actor.typed.scaladsl.{ActorContext, Behaviors}
 import akka.actor.typed.{ActorRef, Behavior}
+import scala.annotation.targetName
 import RaftNode._
 
 object RaftHelpers {
@@ -48,16 +49,16 @@ object RaftHelpers {
     }
   }
 
-  def redirectClientToMostRecentLeader(
-      node: RaftNode,
-      replyTo: ActorRef[ClientResponse]
-  ): Unit = {
-    val message = node.leaderId match {
-      case Some(id) => s"Redirect to leader $id"
-      case None     => "Leader unknown"
-    }
-    println(s"[${node.id}] Redirecting client: $message")
-    replyTo ! ClientResponse(success = false, message = message)
+  @targetName("redirectWriteClient")
+  def redirectClientToMostRecentLeader(node: RaftNode, replyTo: ActorRef[WriteResponse]): Unit = {
+    val leaderHint = node.leaderId.getOrElse("unknown")
+    replyTo ! WriteResponse(success = false, message = s"Redirect to leader $leaderHint")
+  }
+
+  @targetName("redirectReadClient")
+  def redirectClientToMostRecentLeader(node: RaftNode, replyTo: ActorRef[ReadResponse]): Unit = {
+    val leaderHint = node.leaderId.getOrElse("unknown")
+    replyTo ! ReadResponse(s"Redirect to leader $leaderHint")
   }
 
 }

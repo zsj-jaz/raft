@@ -35,7 +35,7 @@ class LeaderAppendOnlySpec extends AnyWordSpecLike {
 
       while (System.currentTimeMillis() < endTime) {
         val cmd = s"SET key$commandIndex=value$commandIndex"
-        node ! ClientRequest(cmd, "clientA", commandIndex, probe.ref)
+        node ! WriteRequest(cmd, "clientA", commandIndex, probe.ref)
         probe.expectMessageType[ClientResponse](1.second)
 
         val newSize = state.log.size

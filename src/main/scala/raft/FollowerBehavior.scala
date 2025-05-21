@@ -9,30 +9,18 @@ object FollowerBehavior {
 
   def apply(node: RaftNode): Behavior[Command] = {
     Behaviors.withTimers { timers =>
-      // Start election timeout
       timers.startSingleTimer(ElectionTimeout, ElectionTimeout, node.randomElectionTimeout())
 
       Behaviors.receive { (context, message) =>
         message match {
 
-          case ClientRequest(_, _, _, replyTo) =>
+          case WriteRequest(_, _, _, replyTo) =>
             redirectClientToMostRecentLeader(node, replyTo)
             Behaviors.same
 
           case ReadRequest(_, _, _, replyTo) =>
             redirectClientToMostRecentLeader(node, replyTo)
             Behaviors.same
-
-          case SetPeers(p, partition) =>
-            node.peers = p.filterNot(_ == context.self)
-            node.partition =
-              if (partition.nonEmpty) partition.filterNot(_ == context.self)
-              else p.filterNot(_ == context.self)
-            Behaviors.same
-
-          case ElectionTimeout =>
-            context.log.info(s"[${node.id}] <Follower> Timeout! Becoming candidate")
-            node.candidate()
 
           case RequestVote(term, candidateId, lastLogIndex, lastLogTerm, replyTo) =>
             handleRequestVote(
@@ -46,8 +34,8 @@ object FollowerBehavior {
               replyTo
             )
 
-          case AppendEntriesResponse(term, _, _, _) =>
-            handleUnexpectedAppendEntriesResponse(node, context, term)
+          case VoteResponse(term, _) =>
+            handleUnexpectedVoteResponse(node, context, term)
 
           case AppendEntries(
                 term,
@@ -71,19 +59,29 @@ object FollowerBehavior {
               replyTo
             )
 
-          case VoteResponse(term, _) =>
-            handleUnexpectedVoteResponse(node, context, term)
+          case AppendEntriesResponse(term, _, _, _) =>
+            handleUnexpectedAppendEntriesResponse(node, context, term)
 
-          case GetState(replyTo) =>
+          case ElectionTimeout =>
+            context.log.info(s"[${node.id}] <Follower> Timeout! Becoming candidate")
+            node.candidate()
+
+          case SetPeers(p, partition) =>
+            node.peers = p.filterNot(_ == context.self)
+            node.partition =
+              if (partition.nonEmpty) partition.filterNot(_ == context.self)
+              else p.filterNot(_ == context.self)
+            Behaviors.same
+
+          // for testing
+          case GetState(replyTo)      =>
             replyTo ! RaftState("Follower", node.id, node.currentTerm, node.log)
             Behaviors.same
 
-          case GetCommitIndex(replyTo) =>
-            replyTo ! node.commitIndex
-            Behaviors.same
-
           case msg =>
-            context.log.debug(s"[${node.id}] Follower received unknown or unhandled message: $msg")
+            context.log.debug(
+              s"[${node.id}] <Follower> Received unknown or unhandled message: $msg"
+            )
             Behaviors.same
         }
       }
@@ -111,12 +109,10 @@ object FollowerBehavior {
         node.setCurrentTerm(term)
         node.setVotedFor(None)
       }
-
-      // if myLastIndex == 0, myLastTerm == 0 (dummy entry)
+      // 5.4.1
       val myLastIndex = node.log.size - 1
       val myLastTerm  = node.log(myLastIndex).term
-
-      val upToDate =
+      val upToDate    =
         (lastLogTerm > myLastTerm) ||
           (lastLogTerm == myLastTerm && lastLogIndex >= myLastIndex)
 
@@ -170,7 +166,7 @@ object FollowerBehavior {
       replyTo: ActorRef[AppendEntriesResponse]
   ): Behavior[Command] = {
 
-    context.log.info(
+    context.log.debug(
       s"[${node.id}] <Follower> Received AppendEntries from $leaderId: term=$term, prevLogIndex=$prevLogIndex, prevLogTerm=$prevLogTerm, entries=${entries
           .map(_.command)}"
     )
@@ -189,22 +185,27 @@ object FollowerBehavior {
 
       val (success, modified) = replicateLog(node, prevLogIndex, prevLogTerm, entries, leaderCommit)
 
-      val matchIndexIfSuccess = if (success) {
-        if (entries.nonEmpty && modified) {
+      val matchIndexIfSuccess =
+        if (success) {
+          if (entries.nonEmpty && modified) {
+            context.log.info(
+              s"[${node.id}] <Follower> Appended ${entries.length} entries from leader $leaderId"
+            )
+            context.log.info(
+              s"[${node.id}] <Follower> log terms: ${node.log.map(_.term).mkString("[", ", ", "]")}"
+            )
+          }
+          // not the last entry, but the last entry of the new entries
+          // i.e, if prevLogIndex = 2, and prevLogTerm = 2, and entries = [3, 4, 5]
+          // but we, the follower has log [1, 2, 3, 4, 5, 6], 6 would not be truncated.
+          // matchIndexIfSuccess = 5, not 6 cause we are not sure if 6 is in leader's log.
+          prevLogIndex + entries.length
+        } else {
           context.log.info(
-            s"[${node.id}] <Follower> Appended ${entries.length} entries from leader $leaderId"
+            s"[${node.id}] <Follower> Log inconsistency with leader at index $prevLogIndex"
           )
-          context.log.info(
-            s"[${node.id}] <Follower> log terms: ${node.log.map(_.term).mkString("[", ", ", "]")}"
-          )
+          -1
         }
-        prevLogIndex + entries.length
-      } else {
-        context.log.info(
-          s"[${node.id}] <Follower> Log inconsistency with leader at index $prevLogIndex"
-        )
-        -1
-      }
 
       replyTo ! AppendEntriesResponse(
         term = node.currentTerm,
@@ -285,7 +286,7 @@ object FollowerBehavior {
     while (node.lastApplied < node.commitIndex) {
       node.lastApplied += 1
       val entry = node.log(node.lastApplied)
-      println(s"[${node.id}] Applying log[${node.lastApplied}]: ${entry.command}")
+      println(s"[${node.id}] <Follower> Applying log[${node.lastApplied}]: ${entry.command}")
 
       node.stateMachine.applyCommand(
         entry.command,

@@ -74,7 +74,7 @@
 [0m[[0m[0minfo[0m] [0m[0m[32mRaft cluster[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should elect leader in majority partition and not in minority[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 45 seconds, 285 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 44 seconds, 780 milliseconds.[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 15[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 14, aborted 0[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 15, failed 0, canceled 0, ignored 0, pending 0[0m[0m

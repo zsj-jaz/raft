@@ -1,7 +1,7 @@
 package raft
 
 import java.io.{File, FileWriter}
-import RaftNode.ClientResponse
+import RaftNode.WriteResponse
 
 trait StateMachine {
 
@@ -9,5 +9,5 @@ trait StateMachine {
       command: String,
       clientId: String,
       serialNum: Int
-  ): (Boolean, ClientResponse)
+  ): (Boolean, WriteResponse)
 }

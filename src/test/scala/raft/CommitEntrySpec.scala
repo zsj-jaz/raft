@@ -13,7 +13,7 @@ class CommitEntrySpec extends AnyWordSpecLike with BeforeAndAfterAll {
     "advance commitIndex and apply entry after quorum Ack" in {
       val peer1  = testKit.createTestProbe[Command]()
       val peer2  = testKit.createTestProbe[Command]()
-      val client = testKit.createTestProbe[ClientResponse]()
+      val client = testKit.createTestProbe[WriteResponse]()
 
       val state = new PersistentState("commit_test")
       state.currentTerm = 3

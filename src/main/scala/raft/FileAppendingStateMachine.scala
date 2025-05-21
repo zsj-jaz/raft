@@ -2,7 +2,7 @@ package raft
 
 import java.io.{File, FileWriter, BufferedWriter}
 import scala.collection.mutable
-import RaftNode.ClientResponse
+import RaftNode.WriteResponse
 
 class FileAppendingStateMachine(nodeId: String) extends StateMachine {
 
@@ -13,7 +13,7 @@ class FileAppendingStateMachine(nodeId: String) extends StateMachine {
 
   private val clientRecords =
     mutable.Map
-      .empty[String, (Int, ClientResponse)] // clientId -> (lastSerial, response(sucess, message))
+      .empty[String, (Int, WriteResponse)] // clientId -> (lastSerial, response(sucess, message))
 
   private val kvStore = mutable.Map.empty[String, String]
 
@@ -21,14 +21,14 @@ class FileAppendingStateMachine(nodeId: String) extends StateMachine {
       command: String,
       clientId: String,
       serialNum: Int
-  ): (Boolean, ClientResponse) = {
+  ): (Boolean, WriteResponse) = {
     clientRecords.get(clientId) match {
-      case Some((lastSerial, clientResponse)) if serialNum <= lastSerial =>
-        // Duplicate or stale request — return cached ClientResponse
+      case Some((lastSerial, writeResponse)) if serialNum <= lastSerial =>
+        // Duplicate or stale request — return cached WriteResponse
         println(
           s"[${nodeId}] Duplicate or stale request from client $clientId: $command"
         )
-        (false, clientResponse)
+        (false, writeResponse)
 
       case _ =>
         // New command — apply it and record the response
@@ -55,8 +55,8 @@ class FileAppendingStateMachine(nodeId: String) extends StateMachine {
         bw.newLine()
         bw.close()
 
-        clientRecords(clientId) = (serialNum, ClientResponse(success = true, message = result))
-        (true, ClientResponse(success = true, message = result))
+        clientRecords(clientId) = (serialNum, WriteResponse(success = true, message = result))
+        (true, WriteResponse(success = true, message = result))
     }
   }
 

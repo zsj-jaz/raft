@@ -1,0 +1,81 @@
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/ClientRedirectSpec.scala:61:25 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m61 |[0m        assert(!response.success)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value success is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/ClientRedirectSpec.scala:62:24 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m62 |[0m        assert(response.message.contains([31m"leader123"[0m))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m               ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value message is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/CommitEntrySpec.scala:48:19 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m48 |[0m      assert(reply.success, [31m"Client should receive success"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m             ^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value success is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/CommitEntrySpec.scala:49:19 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m49 |[0m      assert(reply.message.contains([31m"SET X"[0m), [31ms"Unexpected reply: [0m${reply.message}[31m"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m             ^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value message is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/CommitEntrySpec.scala:49:74 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m49 |[0m      assert(reply.message.contains([31m"SET X"[0m), [31ms"Unexpected reply: [0m${reply.message}[31m"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                                    ^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value message is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E134] Type Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/LogMatchingNaturalSpec.scala:34:16 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m34 |[0m        testKit.spawn[[35mClientResponse[0m](LongLivedClient([31ms"k[0m$i[31m"[0m, nodes), [31ms"client[0m$i[31m"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mNone of the overloaded alternatives of [33mmethod[0m [35mspawn[0m in [33mclass[0m [35mActorTestKit[0m with types[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m [T][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  (behavior: akka.actor.typed.Behavior[T], name: String, props:[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    akka.actor.typed.Props): akka.actor.typed.ActorRef[T][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m [T][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  (behavior: akka.actor.typed.Behavior[T²], name: String):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    akka.actor.typed.ActorRef[T²][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m [T][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  (behavior: akka.actor.typed.Behavior[T³], props: akka.actor.typed.Props):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    akka.actor.typed.ActorRef[T³][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m [T](behavior: akka.actor.typed.Behavior[T⁴]): akka.actor.typed.ActorRef[T⁴][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mmatch type arguments [raft.RaftNode.ClientResponse] and arguments (akka.actor.typed.Behavior[Any], String)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mwhere:    T  is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          T² is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          T³ is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          T⁴ is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E134] Type Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/LogMatchingWithChurnSpec.scala:37:16 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m37 |[0m        testKit.spawn[[35mClientResponse[0m](LongLivedClient([31ms"k[0m$i[31m"[0m, initialNodes), [31ms"client[0m$i[31m"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mNone of the overloaded alternatives of [33mmethod[0m [35mspawn[0m in [33mclass[0m [35mActorTestKit[0m with types[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m [T][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  (behavior: akka.actor.typed.Behavior[T], name: String, props:[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    akka.actor.typed.Props): akka.actor.typed.ActorRef[T][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m [T][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  (behavior: akka.actor.typed.Behavior[T²], name: String):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    akka.actor.typed.ActorRef[T²][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m [T][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m  (behavior: akka.actor.typed.Behavior[T³], props: akka.actor.typed.Props):[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    akka.actor.typed.ActorRef[T³][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m [T](behavior: akka.actor.typed.Behavior[T⁴]): akka.actor.typed.ActorRef[T⁴][0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mmatch type arguments [raft.RaftNode.ClientResponse] and arguments (akka.actor.typed.Behavior[Any], String)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mwhere:    T  is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          T² is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          T³ is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m          T⁴ is a type variable[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/ReadRequestSpec.scala:54:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m54 |[0m      assert(response.success)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m             ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value success is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/ReadRequestSpec.scala:55:22 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m55 |[0m      assert(response.message == [31m"x=1"[0m, [31ms"Expected x=1, but got: [0m${response.message}[31m"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m             ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value message is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/ReadRequestSpec.scala:55:76 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m55 |[0m      assert(response.message == [31m"x=1"[0m, [31ms"Expected x=1, but got: [0m${response.message}[31m"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                                                                   ^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value message is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/SplitBrainSpec.scala:49:24 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m49 |[0m      assert(!response2.success)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m              ^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value success is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/test/scala/raft/SplitBrainSpec.scala:50:23 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m50 |[0m      assert(response2.message.contains([31m"Leader unknown"[0m) || response2.message.contains([31m"Redirect"[0m))[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m             ^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m           value message is not a member of raft.RaftNode.ClientResponse[0m
+[0m[[0m[31merror[0m] [0m[0m12 errors found[0m

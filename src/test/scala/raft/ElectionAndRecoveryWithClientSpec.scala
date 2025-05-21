@@ -48,7 +48,7 @@ class ElectionAndRecoveryWithClientSpec extends AnyWordSpecLike {
 
       // === Send client request to initial leader ===
       println(s"[CLIENT] Sending request 'SET x=42'")
-      leader ! ClientRequest("SET x=42", "clientA", 1, client.ref)
+      leader ! WriteRequest("SET x=42", "clientA", 1, client.ref)
       val response1 = client.receiveMessage(2.seconds)
       println(s"[CLIENT] Got response: $response1")
 
@@ -74,7 +74,7 @@ class ElectionAndRecoveryWithClientSpec extends AnyWordSpecLike {
 
       // === Send another client request ===
       println(s"[CLIENT] Sending request 'SET y=9'")
-      newLeader ! ClientRequest("SET y=9", "clientB", 2, client.ref)
+      newLeader ! WriteRequest("SET y=9", "clientB", 2, client.ref)
       val response2 = client.receiveMessage(2.seconds)
       println(s"[CLIENT] Got response: $response2")
 

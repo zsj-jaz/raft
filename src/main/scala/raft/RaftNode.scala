@@ -39,26 +39,30 @@ object RaftNode {
       matchIndexIfSuccess: Int // so I know how to update matchIndex
   ) extends Command
 
-  final case class ClientRequest(
+  // Client requests
+  sealed trait ClientRequest extends Command
+
+  final case class WriteRequest(
       command: String,
       clientId: String,
       serialNum: Int,
-      replyTo: ActorRef[ClientResponse]
-  ) extends Command
-
-  final case class ClientResponse(success: Boolean, message: String)
+      replyTo: ActorRef[WriteResponse]
+  ) extends ClientRequest
 
   final case class ReadRequest(
       key: String,
       clientId: String,
       serialNum: Int,
-      replyTo: ActorRef[ClientResponse]
-  ) extends Command
+      replyTo: ActorRef[ReadResponse]
+  ) extends ClientRequest
 
-  final case class UnstableRead(
-      key: String,
-      replyTo: ActorRef[ClientResponse]
-  ) extends Command
+  // Client responses
+  sealed trait ClientResponse extends Command
+
+  final case class WriteResponse(success: Boolean, message: String) extends ClientResponse
+  final case class ReadResponse(value: String)                      extends ClientResponse
+  case object Retry                                                 extends ClientResponse
+  case object Tick                                                  extends ClientResponse
 
   // Internal control
   case object SendHeartbeat   extends Command
@@ -68,8 +72,8 @@ object RaftNode {
       peers: Seq[ActorRef[Command]],
       partition: Seq[ActorRef[Command]] = Seq.empty // optional
   ) extends Command
-  final case class GetState(replyTo: ActorRef[RaftState]) extends Command
-  case object BecomeLeader                                extends Command
+
+  case object BecomeLeader extends Command
 
   // Log entry
   final case class LogEntry(
@@ -77,16 +81,22 @@ object RaftNode {
       command: String,
       clientId: String,
       serialNum: Int,
-      replyTo: Option[ActorRef[ClientResponse]] // leave empty for no-op
+      replyTo: Option[ActorRef[WriteResponse]] // leave empty for no-op
   )
 
   // For testing/debugging
   final case class RaftState(role: String, id: String, term: Int, log: List[LogEntry])
-
-  final case class GetCommitIndex(replyTo: ActorRef[Int]) extends Command
+  final case class GetState(replyTo: ActorRef[RaftState]) extends Command
 
   def createForTest(id: String, presetState: PersistentState): RaftNode = {
     new RaftNode(id, presetState)
+  }
+
+  def applyWithState(id: String, presetState: PersistentState): Behavior[Command] = {
+    Behaviors.setup { context =>
+      val node = new RaftNode(id, presetState)
+      node.follower()
+    }
   }
 
   // Start the Raft node as follower
@@ -94,14 +104,6 @@ object RaftNode {
     Behaviors.setup { context =>
       val defaultState = new PersistentState(id).load()
       applyWithState(id, defaultState)
-    }
-  }
-
-  // === Test ===
-  def applyWithState(id: String, presetState: PersistentState): Behavior[Command] = {
-    Behaviors.setup { context =>
-      val node = new RaftNode(id, presetState)
-      node.follower()
     }
   }
 
@@ -136,10 +138,6 @@ class RaftNode private (val id: String, val state: PersistentState) {
   // === Volatile state on all servers ===
   var commitIndex: Int = 0 // nothing committed yet
   var lastApplied: Int = 0 // dummy is applied or ignored
-
-  // // === Volatile state on leaders (reinitialized after election) ===
-  // var matchIndex: Map[ActorRef[Command], Int] = Map.empty
-  // var nextIndex: Map[ActorRef[Command], Int]  = Map.empty
 
   // === Other shared state ===
   var peers: Seq[ActorRef[Command]]     = Seq.empty

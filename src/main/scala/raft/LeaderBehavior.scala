@@ -22,9 +22,9 @@ object LeaderBehavior {
     Behaviors.setup { context =>
       context.log.info(s"[${node.id}] Became Leader in term ${node.currentTerm}")
 
-      var pendingReads: List[(String, String, Int, ActorRef[ClientResponse])]  = List.empty
-      var readQuorumAcks: Set[ActorRef[Command]]                               = Set.empty
-      var pendingClientAcks: Map[Int, (String, Int, ActorRef[ClientResponse])] = Map.empty
+      var pendingReads: List[(String, String, Int, ActorRef[ReadResponse])]  = List.empty
+      var readQuorumAcks: Set[ActorRef[Command]]                             = Set.empty
+      var pendingWriteAcks: Map[Int, (String, Int, ActorRef[WriteResponse])] = Map.empty
 
       val noopEntry = LogEntry(
         term = node.currentTerm,
@@ -46,13 +46,13 @@ object LeaderBehavior {
       var nextIndex  =
         node.peers.map(p => p.path.name -> node.log.size).toMap // last log index + 1 = log.size
 
-      sendAppendEntries() // replicate the no-op immediately
+      sendAppendEntries() // replicate the no-op immediately, for read request
 
-      def handleClientRequest(
+      def handleWriteRequest(
           command: String,
           clientId: String,
           serialNum: Int,
-          replyTo: ActorRef[ClientResponse]
+          replyTo: ActorRef[WriteResponse]
       ): Behavior[Command] = {
         context.log.info(
           s"[${node.id}] <Leader> Received ClientRequest ($command, $clientId, $serialNum)"
@@ -68,7 +68,7 @@ object LeaderBehavior {
           replyTo = Some(replyTo)
         )
 
-        pendingClientAcks += (logIndex -> (clientId, serialNum, replyTo))
+        pendingWriteAcks += (logIndex -> (clientId, serialNum, replyTo))
         node.state.log = node.log :+ entry
         node.state.persist()
         context.log.info(
@@ -84,7 +84,7 @@ object LeaderBehavior {
           key: String,
           clientId: String,
           serialNum: Int,
-          replyTo: ActorRef[ClientResponse]
+          replyTo: ActorRef[ReadResponse]
       ): Unit = {
 
         context.log.info(
@@ -99,7 +99,7 @@ object LeaderBehavior {
               .mkString(", ")}"
         )
 
-        sendAppendEntries()
+        sendAppendEntries() // in case the leadership is stale
         context.log.debug(
           s"[${node.id}] <Leader> Sending AppendEntries for read request to followers"
         )
@@ -118,9 +118,9 @@ object LeaderBehavior {
           val entriesToSend = node.log.slice(nextIdx, node.log.size)
 
           if (entriesToSend.isEmpty) {
-            // context.log.debug(s"[${node.id}] <Leader> Sending heartbeat to ${peer.path.name}")
+            context.log.debug(s"[${node.id}] <Leader> Sending heartbeat to ${peer.path.name}")
           } else {
-            context.log.debug(
+            context.log.info(
               s"[${node.id}] <Leader> Sending ${entriesToSend.length} entries to ${peer.path.name}"
             )
           }
@@ -200,7 +200,7 @@ object LeaderBehavior {
             readQuorumAcks += sender
             val quorum = (node.peers.size + 1) / 2 + 1
             if (readQuorumAcks.size + 1 >= quorum) { // +1 for self
-              context.log.info(
+              context.log.debug(
                 s"[${node.id}] <Leader> Quorum for read confirmed. Serving pending reads."
               )
               respondToBufferedReads()
@@ -215,7 +215,7 @@ object LeaderBehavior {
           val newNextIndex = math.max(1, oldNextIndex - 1)
           nextIndex = nextIndex.updated(follower.path.name, newNextIndex)
 
-          context.log.info(
+          context.log.debug(
             s"[${node.id}] <Leader> AppendEntries failed, backing off nextIndex for ${follower.path.name}: $oldNextIndex → $newNextIndex"
           )
         }
@@ -227,7 +227,8 @@ object LeaderBehavior {
       ): Unit = {
         val matchIndexes  = matchIndex.values.toList :+ (node.log.size - 1) // include leader
         val sorted        = matchIndexes.sorted
-        val majorityIndex = sorted((node.peers.size) / 2)
+        val majorityIndex =
+          sorted((node.peers.size) / 2) // over half have same or higher macthIndex
 
         if (
           majorityIndex > node.commitIndex &&
@@ -237,7 +238,7 @@ object LeaderBehavior {
           // This prevents a new leader from incorrectly committing entries from older terms.
         ) {
           node.commitIndex = majorityIndex
-          context.log.info(s"[${node.id}] <Leader> Commit index advanced to $majorityIndex")
+          context.log.debug(s"[${node.id}] <Leader> Commit index advanced to $majorityIndex")
         }
         applyCommittedEntriesAndRespondClient()
       }
@@ -246,20 +247,23 @@ object LeaderBehavior {
         while (node.lastApplied < node.commitIndex) {
           node.lastApplied += 1
           val entry = node.log(node.lastApplied)
-          println(s"[${node.id}] Applying log[${node.lastApplied}]: ${entry.command}")
+          context.log.debug(
+            s"[${node.id}] <Leader> Applying log[${node.lastApplied}]: ${entry.command}"
+          )
 
-          val (applied, clientResponse) = node.stateMachine.applyCommand(
+          val (applied, writeResponse) = node.stateMachine.applyCommand(
             entry.command,
             entry.clientId,
             entry.serialNum
           )
 
-          entry.replyTo.foreach(_ ! clientResponse)
+          entry.replyTo.foreach(_ ! writeResponse)
 
+          // question: pendingClientAcks is volatile and not replicated? what's the point of this?
           // If leader thinks it inserted something different at this index, notify that client of failure
-          pendingClientAcks.get(node.lastApplied) match {
+          pendingWriteAcks.get(node.lastApplied) match {
             case Some((cid, sn, ref)) if cid != entry.clientId || sn != entry.serialNum =>
-              ref ! ClientResponse(
+              ref ! WriteResponse(
                 success = false,
                 message = "Request was lost due to leadership change"
               )
@@ -267,7 +271,7 @@ object LeaderBehavior {
           }
 
           // Clean up
-          pendingClientAcks -= node.lastApplied
+          pendingWriteAcks -= node.lastApplied
         }
       }
 
@@ -280,7 +284,11 @@ object LeaderBehavior {
             case _                              =>
               "Unsupported state machine"
           }
-          replyTo ! ClientResponse(success = true, message = value)
+          replyTo ! ReadResponse(value)
+
+          // clear state so we don’t reply again
+          pendingReads = List.empty
+          readQuorumAcks = Set.empty
         }
       }
 
@@ -294,7 +302,7 @@ object LeaderBehavior {
       ): Behavior[Command] = {
         if (term > node.currentTerm) {
           context.log.info(
-            s"[${node.id}] Received RequestVote from $candidateId with newer term $term — stepping down"
+            s"[${node.id}] <Leader> Received RequestVote from $candidateId with newer term $term — stepping down"
           )
           timers.cancel("heartbeat")
           // votedfor = None if term > currentTerm
@@ -305,7 +313,7 @@ object LeaderBehavior {
           )
         } else {
           context.log.info(
-            s"[${node.id}] Denying vote request from $candidateId (term $term), current term is ${node.currentTerm}"
+            s"[${node.id}] <Leader> Denying vote request from $candidateId (term $term), current term is ${node.currentTerm}"
           )
           replyTo ! VoteResponse(node.currentTerm, voteGranted = false)
           Behaviors.same
@@ -318,7 +326,7 @@ object LeaderBehavior {
       ): Behavior[Command] = {
         if (term > node.currentTerm) {
           context.log.info(
-            s"[${node.id}] Stepping down: received unexpected VoteResponse with newer term $term"
+            s"[${node.id}] <Leader> Stepping down: received unexpected VoteResponse with newer term $term"
           )
           timers.cancel("heartbeat")
           // votedfor = None before transit to follower
@@ -329,8 +337,8 @@ object LeaderBehavior {
       }
 
       Behaviors.receiveMessage {
-        case ClientRequest(command, clientId, serialNum, replyTo) =>
-          handleClientRequest(command, clientId, serialNum, replyTo)
+        case WriteRequest(command, clientId, serialNum, replyTo) =>
+          handleWriteRequest(command, clientId, serialNum, replyTo)
 
         case ReadRequest(key, clientId, serialNum, replyTo) =>
           handleReadRequest(key, clientId, serialNum, replyTo)
@@ -340,9 +348,18 @@ object LeaderBehavior {
           sendAppendEntries()
           Behaviors.same
 
-        case GetState(replyTo) =>
-          replyTo ! RaftState("Leader", node.id, node.currentTerm, node.log)
-          Behaviors.same
+        case RequestVote(term, candidateId, lastLogIndex, lastLogTerm, replyTo) =>
+          handleRequestVote(
+            timers,
+            term,
+            candidateId,
+            lastLogIndex,
+            lastLogTerm,
+            replyTo
+          )
+
+        case VoteResponse(term, _) =>
+          handleUnexpectedVoteResponse(timers, term)
 
         case AppendEntries(
               term,
@@ -373,28 +390,16 @@ object LeaderBehavior {
             matchIndexIfSuccess
           )
 
-        case RequestVote(term, candidateId, lastLogIndex, lastLogTerm, replyTo) =>
-          handleRequestVote(
-            timers,
-            term,
-            candidateId,
-            lastLogIndex,
-            lastLogTerm,
-            replyTo
-          )
-
-        case VoteResponse(term, _) =>
-          handleUnexpectedVoteResponse(timers, term)
-
-        case GetCommitIndex(replyTo) =>
-          replyTo ! node.commitIndex
-          Behaviors.same
-
         case SetPeers(p, partition) =>
           node.peers = p.filterNot(_ == context.self)
           node.partition =
             if (partition.nonEmpty) partition.filterNot(_ == context.self)
             else p.filterNot(_ == context.self)
+          Behaviors.same
+
+        // for testing
+        case GetState(replyTo)      =>
+          replyTo ! RaftState("Leader", node.id, node.currentTerm, node.log)
           Behaviors.same
 
         case msg =>

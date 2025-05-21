@@ -15,7 +15,7 @@ class ClientRedirectSpec extends AnyWordSpecLike with BeforeAndAfterAll {
 
   "A Follower" should {
     "redirect client request to known leader" in {
-      val clientProbe    = testKit.createTestProbe[ClientResponse]()
+      val clientProbe    = testKit.createTestProbe[WriteResponse]()
       val heartbeatProbe = testKit.createTestProbe[AppendEntriesResponse]()
 
       val state = new PersistentState("f3")
@@ -55,9 +55,9 @@ class ClientRedirectSpec extends AnyWordSpecLike with BeforeAndAfterAll {
 
       try {
         // Client request to follower
-        follower ! ClientRequest("write something", "cli1", 1, clientProbe.ref)
+        follower ! WriteRequest("write something", "cli1", 1, clientProbe.ref)
 
-        val response = clientProbe.expectMessageType[ClientResponse](500.millis)
+        val response = clientProbe.expectMessageType[WriteResponse](500.millis)
         assert(!response.success)
         assert(response.message.contains("leader123"))
       } finally {

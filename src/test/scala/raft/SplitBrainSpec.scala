@@ -38,14 +38,14 @@ class SplitBrainSpec extends AnyWordSpecLike {
       Thread.sleep(3000)
 
       // Request to majority (should succeed)
-      val client1 = testKit.createTestProbe[ClientResponse]()
-      n3 ! ClientRequest("SET k=1", "client", 1, client1.ref)
-      client1.expectMessageType[ClientResponse](2.seconds)
+      val client1 = testKit.createTestProbe[WriteResponse]()
+      n3 ! WriteRequest("SET k=1", "client", 1, client1.ref)
+      client1.expectMessageType[WriteResponse](2.seconds)
 
       // Request to minority (should fail or time out)
-      val client2   = testKit.createTestProbe[ClientResponse]()
-      n1 ! ClientRequest("SET stale=2", "client", 2, client2.ref)
-      val response2 = client2.expectMessageType[ClientResponse](2.seconds)
+      val client2   = testKit.createTestProbe[WriteResponse]()
+      n1 ! WriteRequest("SET stale=2", "client", 2, client2.ref)
+      val response2 = client2.expectMessageType[WriteResponse](2.seconds)
       assert(!response2.success)
       assert(response2.message.contains("Leader unknown") || response2.message.contains("Redirect"))
 
@@ -57,7 +57,7 @@ class SplitBrainSpec extends AnyWordSpecLike {
 
       // Request after healing — should succeed
       val client3 = testKit.createTestProbe[ClientResponse]()
-      n3 ! ClientRequest("SET k=2", "client", 2, client3.ref)
+      n3 ! WriteRequest("SET k=2", "client", 2, client3.ref)
       client3.expectMessageType[ClientResponse](2.seconds)
     }
   }
