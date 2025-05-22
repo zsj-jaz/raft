@@ -5505,3 +5505,22 @@ WARNING: empty definition using pc, found symbol in pc: `<none>`. (full report a
 2025.05.21 01:06:05 INFO  Attaching to debuggee VM succeeded.
 2025.05.21 01:06:12 INFO  Canceling debug proxy for [raft.SplitBrainSpec()]
 2025.05.21 01:06:12 INFO  Closing debug server tcp://0.0.0.0:63283
+2025.05.21 19:10:40 INFO  Shutting down server
+2025.05.21 19:10:40 INFO  shutting down Metals
+2025.05.21 19:10:40 INFO  Shut down connection with build server.
+2025.05.21 19:10:40 INFO  Shut down connection with build server.
+2025.05.21 19:10:40 INFO  Exiting server
+2025.05.22 17:54:53 INFO  Started: Metals version 1.5.3 in folders '/Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft' for client Visual Studio Code 1.83.1.
+2025.05.22 17:54:53 INFO  no build target found for /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/src/main/scala/raft/LeaderBehavior.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2025.05.22 17:54:54 INFO  Attempting to connect to the build server...
+2025.05.22 17:54:54 INFO  Found a Bloop server running
+2025.05.22 17:54:54 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/bsp.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.05.22 17:54:54 INFO  Attempting to connect to the build server...
+2025.05.22 17:54:54 INFO  Found a Bloop server running
+2025.05.22 17:54:54 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/project/.metals/bsp.trace.json or /Users/pagewu/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.05.22 17:54:54 INFO  time: Connected to build server in 0.5s
+2025.05.22 17:54:54 INFO  Connected to Build server: Bloop v2.0.10
+2025.05.22 17:54:54 INFO  time: Imported build in 0.13s
+May 22, 2025 5:54:55 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3
+2025.05.22 17:54:58 INFO  time: indexed workspace in 3.46s
