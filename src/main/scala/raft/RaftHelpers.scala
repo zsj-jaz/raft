@@ -38,7 +38,7 @@ object RaftHelpers {
     leaderIdOpt.foreach(id => node.setLeaderId(Some(id)))
   }
 
-  def transitionToFollowerAndReplay(
+  def transitToFollowerAndReplay(
       node: RaftNode,
       message: Command
   ): Behavior[Command] = {

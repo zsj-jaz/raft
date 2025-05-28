@@ -93,6 +93,7 @@ object CandidateBehavior {
       context: ActorContext[Command],
       votesReceived: Int
   ): Unit = {
+    // increase current term and vote for itself
     node.persistCurrentTerm(node.currentTerm + 1)
     node.persistVotedFor(Some(node.id))
 
@@ -103,6 +104,7 @@ object CandidateBehavior {
       s"[${node.id}] <Candidate> Starting election for term ${node.currentTerm} (lastLogIndex=$lastLogIndex, lastLogTerm=$lastLogTerm)"
     )
 
+    // edge case: if this is the only node in the cluster, it can become leader immediately
     val majority = (node.peers.size / 2) + 1
     if (votesReceived >= majority) {
       context.log.info(
@@ -173,7 +175,7 @@ object CandidateBehavior {
       )
       // votedfor = None
       stepdown(node, term) // No known leader in this case
-      transitionToFollowerAndReplay(
+      transitToFollowerAndReplay(
         node,
         RequestVote(term, candidateId, lastLogIndex, lastLogTerm, replyTo)
       )
@@ -210,7 +212,7 @@ object CandidateBehavior {
       // votedfor = None if term > currentTerm
       // votedfor stay the same if term == currentTerm
       stepdown(node, term, leaderId)
-      transitionToFollowerAndReplay(
+      transitToFollowerAndReplay(
         node,
         AppendEntries(term, leaderId, prevLogIndex, prevLogTerm, entries, leaderCommit, replyTo)
       )

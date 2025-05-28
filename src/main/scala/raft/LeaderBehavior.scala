@@ -21,11 +21,13 @@ object LeaderBehavior {
   ): Behavior[Command] = {
     Behaviors.setup { context =>
       context.log.info(s"[${node.id}] Became Leader in term ${node.currentTerm}")
-
+      // for reading, ensure its the valid leader before responding to read reqeust
       var pendingReads: List[(String, String, Int, ActorRef[ReadResponse])]  = List.empty
       var readQuorumAcks: Set[ActorRef[Command]]                             = Set.empty
+      // not necessary
       var pendingWriteAcks: Map[Int, (String, Int, ActorRef[WriteResponse])] = Map.empty
 
+      // for reading, so we can respond to read earlier incase there is no write before read.
       val noopEntry = LogEntry(
         term = node.currentTerm,
         command = "<no-op>",
@@ -68,7 +70,9 @@ object LeaderBehavior {
           replyTo = Some(replyTo)
         )
 
+        // not necessary
         pendingWriteAcks += (logIndex -> (clientId, serialNum, replyTo))
+
         node.state.log = node.log :+ entry
         node.state.persist()
         context.log.info(
@@ -161,7 +165,7 @@ object LeaderBehavior {
           // only one leader allowed per term in Raft
           timers.cancel("heartbeat")
           stepdown(node, term, leaderId)
-          return transitionToFollowerAndReplay(
+          return transitToFollowerAndReplay(
             node,
             AppendEntries(term, leaderId, prevLogIndex, prevLogTerm, entries, leaderCommit, replyTo)
           )
@@ -187,6 +191,7 @@ object LeaderBehavior {
 
         if (term == node.currentTerm && success) {
           val follower     = sender
+          // matchIndex increase monotonically
           val currentMatch = matchIndex.getOrElse(follower.path.name, 0)
           if (matchIndexIfSuccess > currentMatch) {
             matchIndex = matchIndex.updated(follower.path.name, matchIndexIfSuccess)
@@ -222,6 +227,21 @@ object LeaderBehavior {
 
           context.log.debug(
             s"[${node.id}] <Leader> AppendEntries failed, backing off nextIndex for ${follower.path.name}: $oldNextIndex → $newNextIndex"
+          )
+          // Resend AppendEntries with the updated nextIndex
+          val prevLogIndex  = newNextIndex - 1
+          val prevLogTerm   =
+            if (prevLogIndex < node.log.length) node.log(prevLogIndex).term else 0
+          val entriesToSend = node.log.slice(newNextIndex, node.log.size)
+
+          follower ! AppendEntries(
+            term = node.currentTerm,
+            leaderId = node.id,
+            prevLogIndex = prevLogIndex,
+            prevLogTerm = prevLogTerm,
+            entries = entriesToSend,
+            leaderCommit = node.commitIndex,
+            replyTo = context.self
           )
         }
 
@@ -293,6 +313,7 @@ object LeaderBehavior {
 
           // clear state so we don’t reply again
           pendingReads = List.empty
+          // we can reform the read quorum acks when new read comes in
           readQuorumAcks = Set.empty
         }
       }
@@ -312,7 +333,7 @@ object LeaderBehavior {
           timers.cancel("heartbeat")
           // votedfor = None if term > currentTerm
           stepdown(node, term) // unknown leader
-          return transitionToFollowerAndReplay(
+          return transitToFollowerAndReplay(
             node,
             RequestVote(term, candidateId, lastLogIndex, lastLogTerm, replyTo)
           )

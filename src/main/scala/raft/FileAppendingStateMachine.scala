@@ -23,10 +23,21 @@ class FileAppendingStateMachine(nodeId: String) extends StateMachine {
       serialNum: Int
   ): (Boolean, WriteResponse) = {
     clientRecords.get(clientId) match {
-      case Some((lastSerial, writeResponse)) if serialNum <= lastSerial =>
-        // Duplicate or stale request — return cached WriteResponse
+      case Some((lastSerial, writeResponse)) if serialNum < lastSerial =>
+        // Stale request — reject
         println(
-          s"[${nodeId}] Duplicate or stale request from client $clientId: $command"
+          s"[${nodeId}] Stale request from client $clientId: $command (serial $serialNum < $lastSerial)"
+        )
+        val response = WriteResponse(
+          success = false,
+          message = s"Stale request (serial=$serialNum < last=$lastSerial)"
+        )
+        (false, response)
+
+      case Some((lastSerial, writeResponse)) if serialNum == lastSerial =>
+        // Duplicate request — return cached WriteResponse
+        println(
+          s"[${nodeId}] Duplicate request from client $clientId: $command"
         )
         (false, writeResponse)
 

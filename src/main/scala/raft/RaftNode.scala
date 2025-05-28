@@ -92,6 +92,7 @@ object RaftNode {
     new RaftNode(id, presetState)
   }
 
+  // Start the Raft node as follower
   def applyWithState(id: String, presetState: PersistentState): Behavior[Command] = {
     Behaviors.setup { context =>
       val node = new RaftNode(id, presetState)
@@ -99,7 +100,7 @@ object RaftNode {
     }
   }
 
-  // Start the Raft node as follower
+  // Try load the persistent state from disk and start the Raft node
   def apply(id: String): Behavior[Command] = {
     Behaviors.setup { context =>
       val defaultState = new PersistentState(id).load()

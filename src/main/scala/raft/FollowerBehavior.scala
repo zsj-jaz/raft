@@ -120,14 +120,14 @@ object FollowerBehavior {
       if (notVotedOrVotedForYou && upToDate) {
         context.log.info(s"[${node.id}] <Follower> Granting vote to $candidateId for term $term")
         node.persistVotedFor(Some(candidateId))
-        // reset timer if grant vote
+        // reset timer if grant vote, fig 2 followers 5.2, guide 1
         timers.startSingleTimer(ElectionTimeout, ElectionTimeout, node.randomElectionTimeout())
         replyTo ! VoteResponse(term, voteGranted = true)
       } else {
         context.log.info(
           s"[${node.id}] <Follower> Denying vote to $candidateId (votedFor = ${node.votedFor}, upToDate = $upToDate)"
         )
-        // not reset timer since we are not granting vote
+        // not reset timer since we are not granting vote, fig 2 followers 5.2, guide 1
         replyTo ! VoteResponse(term, voteGranted = false)
       }
       Behaviors.same
@@ -248,7 +248,7 @@ object FollowerBehavior {
         modified = true
         i = entries.length
       } else {
-        // entries match, just walk by it.
+        // entries match, move to the next entry
         index += 1
         i += 1
       }
@@ -258,14 +258,14 @@ object FollowerBehavior {
       node.state.persist()
     }
 
-    /** The in the final step (#5) of min AppendEntries is necessary, and it needs to be computed
-      * with the index of the last new entry. It is not sufficient to simply have the function that
-      * applies things from your log between and lastApplied commitIndex stop when it reaches the
-      * end of your log. This is because you may have entries in your log that differ from the
-      * leader’s log after the entries that the leader sent you (which all match the ones in your
-      * log). Because #3 dictates that you only truncate your log if you have conflicting entries,
-      * those won’t be removed, and if leaderCommit is beyond the entries the leader sent you, you
-      * may apply incorrect entries.*
+    /** Because #3 dictates that you only truncate your log if you have conflicting entries, those
+      * won’t be removed, and if leaderCommit is beyond the entries the leader sent you, you may
+      * apply incorrect entries.
+      *
+      * entries: [3, 4, 5], prevLogIndex = 2, leaderCommit = 6
+      *
+      * my log: [0, 1, 2, 3, 4, 5, 6], the 6th entry may not be the same as 6th entry in leader's
+      * log
       */
     val lastNewEntryIndex = prevLogIndex + entries.length
     if (leaderCommit > node.commitIndex) {

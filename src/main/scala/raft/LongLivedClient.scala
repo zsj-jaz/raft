@@ -32,6 +32,11 @@ object LongLivedClient {
           WriteRequest("INIT", clientId = "dummy", serialNum = 0, context.self)
         var leader: Option[ActorRef[Command]] = None
 
+        def pickRandomNode(nodes: Seq[ActorRef[Command]]): ActorRef[Command] = {
+          val rnd = scala.util.Random
+          nodes(rnd.nextInt(nodes.length))
+        }
+
         def sendNextRequest(): Unit = {
           val isFirst  = serialNum == 1
           val isWrite  = isFirst || Random.nextBoolean()
@@ -101,16 +106,14 @@ object LongLivedClient {
           }
         }
 
-        def pickRandomNode(nodes: Seq[ActorRef[Command]]): ActorRef[Command] = {
-          val rnd = scala.util.Random
-          nodes(rnd.nextInt(nodes.length))
-        }
-
         def extractRedirection(
             msg: String,
             nodes: Seq[ActorRef[Command]]
         ): Option[ActorRef[Command]] = {
           val maybeId = msg.stripPrefix("Redirect to leader ").trim
+          if (maybeId == "unknown") {
+            return Some(pickRandomNode(nodes))
+          }
           nodes.find(_.path.name == maybeId)
         }
 
