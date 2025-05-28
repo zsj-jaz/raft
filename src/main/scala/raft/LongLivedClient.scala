@@ -89,6 +89,15 @@ object LongLivedClient {
               leader = Some(newLeader)
               retry()
             }
+          } else if (msg.startsWith("Stale request")) {
+            context.log.warn(s"[LongLived-$clientId] Stale request: $msg")
+            serialNum += 1
+            timers.cancel("retry")
+            timers.startSingleTimer("tick", Tick, 10.seconds)
+          } else {
+            context.log.error(s"[LongLived-$clientId] Write failed: $msg")
+            // Handle unexpected failure
+            timers.startSingleTimer("retry", Retry, 5.seconds)
           }
         }
 

@@ -113,7 +113,7 @@ object LeaderBehavior {
       def sendAppendEntries(): Unit = {
         node.partition.foreach { peer =>
           val nextIdx       = nextIndex.getOrElse(peer.path.name, node.log.size) // fallback for safety
-          context.log.info(
+          context.log.debug(
             s"[${node.id}] <Leader> Sending AppendEntries to ${peer.path.name} (nextIdx=$nextIdx)"
           )
           val prevLogIndex  = nextIdx - 1

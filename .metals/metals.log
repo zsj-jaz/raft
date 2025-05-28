@@ -5621,3 +5621,9 @@ WARNING: Unmatched cancel notification for request id 4762
 2025.05.28 00:08:07 INFO  time: compiled root in 0.23s
 2025.05.28 00:08:25 INFO  compiling root (1 scala source)
 2025.05.28 00:08:25 INFO  time: compiled root in 0.16s
+2025.05.28 00:15:16 INFO  compiling root (1 scala source)
+2025.05.28 00:15:16 INFO  time: compiled root in 0.17s
+May 28, 2025 12:18:06 AM scala.meta.internal.metals.StdReporter $anonfun$create$1
+WARNING: empty definition using pc, found symbol in pc: `<none>`. (full report at: /Users/pagewu/Documents/JasZ/CCI-DSMS/Spr_2025/cs647/raft/.metals/.reports/metals-full/2025-05-20/r_empty-definition_(root)_19-19-52-944.md)
+2025.05.28 00:18:20 INFO  compiling root (1 scala source)
+2025.05.28 00:18:20 INFO  time: compiled root in 0.13s
